@@ -97,6 +97,7 @@ class Clientes extends Controlador{
         $datos =[
             'Clientes'=> $arrayCliente
         ];
+
         $this->vista('clientes/editar', $datos);
     }
 
@@ -140,6 +141,7 @@ class Clientes extends Controlador{
             
         } else {
             $datos =[
+                'cliente_id'=> '',
                 'documento_identidad'=> '',
                 'nombre'=> '',
                 'apellidos'=> '',

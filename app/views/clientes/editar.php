@@ -8,7 +8,8 @@
 <form action="<?php echo RUTA_URL; ?>/clientes/editar" method="POST">
     <div class="form-group">
         <label for="cliente_id"> Cliente_id</label>
-        <input type="text" value="<?php foreach ($datos['Clientes'] as $clientes) { echo $clientes->cliente_id; }?>" class="field left" readonly>
+        <input type="text"name="cliente_id" value="<?php foreach ($datos['Clientes'] as $clientes) { echo $clientes->cliente_id; }?>" class="field left" readonly>
+        <span class="error">*</span>
     </div>
     <div class="form-group">
         <label for="documento_identidad"> Documento_identidad <sup>*</sup></label>
