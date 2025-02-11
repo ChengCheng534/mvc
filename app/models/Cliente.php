@@ -1,9 +1,16 @@
 <?php
     class Cliente{
         private $db;
+        private $cliente_id, $documento_identidad, $nombre, $apellidos, $email, $telefono, $direccion, $fecha_nacimiento, $fotografia;
 
         public function __construct() {
             $this->db = new DataBase();
+        }
+
+        public function __get($propiedad) {
+            if (property_exists($this, $propiedad)) {
+                return $this->$propiedad;
+            }
         }
 
         public function obtenerClientes() {
@@ -38,14 +45,14 @@
         public function obtenerCliente($cliente_id){
             $this->db->query("SELECT * from Cliente where cliente_id=$cliente_id");
     
-            $resultados = $this->db->registros();
+            $resultados = $this->db->registro();
             return $resultados;
         }
 
         public function borrarCliente($cliente_id){
             $this->db->query("DELETE FROM Cliente WHERE cliente_id=$cliente_id");
 
-            $resultados = $this->db->registros();
+            $resultados = $this->db->execute();
             return $resultados;
         }
 

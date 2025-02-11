@@ -16,6 +16,9 @@
     <div class="list-group">
       <a href="<?php echo RUTA_URL; ?>/clientes/agregar" class="list-group-item list-group-item-action">Alta</a>    
     </div>
+    <div class="">
+      <a href=""></a>
+    </div>
 </div>
 
 
