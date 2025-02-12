@@ -5,9 +5,6 @@
 <a href="<?php echo RUTA_URL; ?>/clientes">Volver</a>
 <h2>Actualizar Cliente</h2>
 <h3></h3>
-<?php
-print_r($datos);
-?>
 <form action="<?php echo RUTA_URL; ?>/clientes/editar" method="POST">
     <div class="form-group">
         <label for="cliente_id"> Cliente_id</label>

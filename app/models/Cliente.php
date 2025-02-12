@@ -13,6 +13,12 @@
             }
         }
 
+        public function __set($propiedad, $valor) {
+            if (property_exists($this, $propiedad)) {
+                $this->$propiedad = $valor;
+            }
+        }
+
         public function obtenerClientes() {
             $this->db->query("SELECT * from Cliente");
     
@@ -57,20 +63,19 @@
         }
 
         public function editarCliente($datos){
-            print_r($datos);
+            //print_r($datos);
             $this->db->query("UPDATE cliente SET DOCUMENTO_IDENTIDAD=:documento_identidad, nombre=:nombre, apellidos=:apellidos, email=:email, telefono=:telefono, direccion=:direccion, fecha_nacimiento=:fecha_nacimiento, fotografia=:fotografia WHERE cliente_id=:cliente_id");
 
             // Vinculamos los valores
-            $this->db->bind(":cliente_id", $datos["cliente_id"]);
-            $this->db->bind(":documento_identidad", $datos["documento_identidad"]);
-            $this->db->bind(":nombre", $datos["nombre"]);
-            $this->db->bind(":apellidos", $datos["apellidos"]);
-            $this->db->bind(":nombre", $datos["nombre"]);
-            $this->db->bind(":email", $datos["email"]);
-            $this->db->bind(":telefono", $datos["telefono"]);
-            $this->db->bind(":direccion", $datos["direccion"]);
-            $this->db->bind(":fecha_nacimiento", $datos["fecha_nacimiento"]);
-            $this->db->bind(":fotografia", $datos["fotografia"]);
+            $this->db->bind(":cliente_id", $datos['Cliente']->cliente_id);
+            $this->db->bind(":documento_identidad", $datos['Cliente']->documento_identidad);
+            $this->db->bind(":nombre", $datos['Cliente']->nombre);
+            $this->db->bind(":apellidos", $datos['Cliente']->apellidos);
+            $this->db->bind(":email", $datos['Cliente']->email);
+            $this->db->bind(":telefono", $datos['Cliente']->telefono);
+            $this->db->bind(":direccion", $datos['Cliente']->direccion);
+            $this->db->bind(":fecha_nacimiento", $datos['Cliente']->fecha_nacimiento);
+            $this->db->bind(":fotografia", $datos['Cliente']->fotografia);
     
             // Ejecutar la consulta
             if ($this->db->execute()) {

@@ -107,15 +107,27 @@ class Clientes extends Controlador{
     public function editar() {
         if ($_SERVER['REQUEST_METHOD']=='POST') {
             $obj = new Cliente();
-            $obj->cliente_id->trim($_POST['cliente_id']);
-            $obj->documento_identidad->trim($_POST['documento_identidad']);
-            $obj->nombre->trim($_POST['nombre']);
-            $obj->apellidos->trim($_POST['apellidos']);
-            $obj->email->trim($_POST['email']);
-            $obj->telefono->trim($_POST['telefono']);
-            $obj->direccion->trim($_POST['direccion']);
-            $obj->fecha_nacimiento->trim($_POST['fecha_nacimiento']);
-            $obj->fotografia->trim($_POST['fotografia']);
+            $obj->cliente_id = trim($_POST['cliente_id']);
+            $obj->documento_identidad = trim($_POST['documento_identidad']);
+            $obj->nombre=trim($_POST['nombre']);
+            $obj->apellidos=trim($_POST['apellidos']);
+            $obj->email=trim($_POST['email']);
+            $obj->telefono=trim($_POST['telefono']);
+            $obj->direccion=trim($_POST['direccion']);
+            $obj->fecha_nacimiento=trim($_POST['fecha_nacimiento']);
+            $obj->fotografia=trim($_POST['fotografia']);
+
+          /*  $objetos =[
+                'cliente_id'=> trim($_POST['cliente_id']),
+                'documento_identidad'=> trim($_POST['documento_identidad']),
+                'nombre'=> trim($_POST['nombre']),
+                'apellidos'=> trim($_POST['apellidos']),
+                'email'=> trim($_POST['email']),
+                'telefono'=> trim($_POST['telefono']),
+                'direccion'=> trim($_POST['direccion']),
+                'fecha_nacimiento'=> trim($_POST['fecha_nacimiento']),
+                'fotografia'=> trim($_POST['fotografia']), 
+            ]; */
 
             $datos =[
                 'Cliente'=>$obj,
@@ -143,12 +155,10 @@ class Clientes extends Controlador{
                 }
             
                 if ($datos['errorIdent']=='' && $datos['errorNombre']=='' && $datos['errorApellidos']=='') {
-                    echo "SIN ERRORES";
                     if ($this->clienteModelo->editarCliente($datos)){
                         redireccionar('/clientes');
                     } 
                 }
-
                 $this->vista('clientes/editar', $datos);                
             
         } else {
