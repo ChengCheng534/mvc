@@ -13,7 +13,7 @@
     </div>
     <div class="form-group">
         <label for="documento_identidad"> Documento_identidad <sup>*</sup></label>
-        <input type="text" name="documento_identidad" value="<?php echo $datos['Cliente']->DOCUMENTO_IDENTIDAD; ?>">
+        <input type="text" name="documento_identidad" value="<?php echo $datos['Cliente']->documento_identidad; ?>">
         <span class="error">*<?php echo $datos['errorIdent']; ?></span>
     </div>
     <div class="form-group">

@@ -26,7 +26,7 @@
         foreach ($datos['Clientes'] as $clientes) {
           echo "<tr>";
           echo "<td rowspan='2'>" . $clientes->cliente_id . "</td>";
-          echo "<td rowspan='2'>" . $clientes->DOCUMENTO_IDENTIDAD . "</td>";
+          echo "<td rowspan='2'>" . $clientes->documento_identidad . "</td>";
           echo "<td rowspan='2'>" . $clientes->nombre . "</td>";
           echo "<td rowspan='2'>" . $clientes->apellidos . "</td>";
           echo "<td rowspan='2'>" . $clientes->email . "</td>";

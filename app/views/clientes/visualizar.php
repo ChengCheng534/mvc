@@ -6,23 +6,23 @@
 ?>
 <div class="container mt-5">
     <?php
-        foreach ($datos['Clientes'] as $clientes) {
-            echo "<ul>";
-            echo "<li>".$clientes->cliente_id."</li>";
-            echo "<li>".$clientes->DOCUMENTO_IDENTIDAD."</li>";
-            echo "<li>".$clientes->nombre."</li>";
-            echo "<li>".$clientes->apellidos."</li>";
-            echo "<li>".$clientes->email."</li>";
-            echo "<li>".$clientes->telefono."</li>";
-            echo "<li>".$clientes->direccion."</li>";
-            echo "<li>".$clientes->fecha_nacimiento."</li>";
-            echo "<li>".$clientes->fotografia."</li>";
+    echo "<h3>Datos de cliente que desea eliminar:</h3>";
+    $id = $datos['Clientes']->cliente_id;
+        echo "<ul>";
+            echo "<li>ID: ".$datos['Clientes']->cliente_id."</li>";
+            echo "<li>".$datos['Clientes']->documento_identidad."</li>";
+            echo "<li>".$datos['Clientes']->nombre."</li>";
+            echo "<li>".$datos['Clientes']->apellidos."</li>";
+            echo "<li>".$datos['Clientes']->email."</li>";
+            echo "<li>".$datos['Clientes']->telefono."</li>";
+            echo "<li>".$datos['Clientes']->direccion."</li>";
+            echo "<li>".$datos['Clientes']->fecha_nacimiento."</li>";
+            echo "<li>".$datos['Clientes']->fotografia."</li>";
             echo "</ul>";
-        }
         echo "¿Esta seguro eliminar este cliente?";
     ?>
     <br>
-    <a href="<?php echo RUTA_URL . "\Clientes/borrar/$clientes->cliente_id" ?> ">Si</a>
+    <a href="<?php echo RUTA_URL . "\Clientes/borrar/$id" ?> ">Si</a>
     <br>
     <a href="<?php echo RUTA_URL; ?>/clientes">No</a>
  <?php

@@ -27,7 +27,7 @@
         }
 
         public function agregarClientes($datos){
-            $this->db->query("INSERT INTO cliente (DOCUMENTO_IDENTIDAD, nombre, apellidos, email, telefono, direccion, fecha_nacimiento, fotografia) VALUES (:documento_identidad, :nombre, :apellidos, :email, :telefono, :direccion, :fecha_nacimiento, :fotografia)");
+            $this->db->query("INSERT INTO cliente (documento_identidad, nombre, apellidos, email, telefono, direccion, fecha_nacimiento, fotografia) VALUES (:documento_identidad, :nombre, :apellidos, :email, :telefono, :direccion, :fecha_nacimiento, :fotografia)");
     
             // Vinculamos los valores
             $this->db->bind(":documento_identidad", $datos["documento_identidad"]);
@@ -64,7 +64,7 @@
 
         public function editarCliente($datos){
             //print_r($datos);
-            $this->db->query("UPDATE cliente SET DOCUMENTO_IDENTIDAD=:documento_identidad, nombre=:nombre, apellidos=:apellidos, email=:email, telefono=:telefono, direccion=:direccion, fecha_nacimiento=:fecha_nacimiento, fotografia=:fotografia WHERE cliente_id=:cliente_id");
+            $this->db->query("UPDATE cliente SET documento_identidad=:documento_identidad, nombre=:nombre, apellidos=:apellidos, email=:email, telefono=:telefono, direccion=:direccion, fecha_nacimiento=:fecha_nacimiento, fotografia=:fotografia WHERE cliente_id=:cliente_id");
 
             // Vinculamos los valores
             $this->db->bind(":cliente_id", $datos['Cliente']->cliente_id);

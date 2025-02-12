@@ -117,18 +117,6 @@ class Clientes extends Controlador{
             $obj->fecha_nacimiento=trim($_POST['fecha_nacimiento']);
             $obj->fotografia=trim($_POST['fotografia']);
 
-          /*  $objetos =[
-                'cliente_id'=> trim($_POST['cliente_id']),
-                'documento_identidad'=> trim($_POST['documento_identidad']),
-                'nombre'=> trim($_POST['nombre']),
-                'apellidos'=> trim($_POST['apellidos']),
-                'email'=> trim($_POST['email']),
-                'telefono'=> trim($_POST['telefono']),
-                'direccion'=> trim($_POST['direccion']),
-                'fecha_nacimiento'=> trim($_POST['fecha_nacimiento']),
-                'fotografia'=> trim($_POST['fotografia']), 
-            ]; */
-
             $datos =[
                 'Cliente'=>$obj,
                 'errorIdent' =>'',
