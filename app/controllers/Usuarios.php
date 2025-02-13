@@ -1,20 +1,47 @@
 <?php
-class Clientes extends Controlador{
+class Usuarios extends Controlador{
     public function __construct() {
-      //1) Acceso al modelo
-      //$this->usuarioModelo = $this->modelo('Usuario');
-      $this->clienteModelo = $this->modelo('Cliente');
+        $this->usuarioModelo = $this->modelo('Usuario');
     }
 
     public function index() {
-        // Podemos pasar parametros a la vista que queramos
-        // Para ello nos creamos un array con los parámetros
-       $usuarios = $this->usuarioModelo->obtenerUsuarios();
+        $usuarios = $this->usuarioModelo->obtenerUsuarios();
         $datos =[
-            'usuarios'=> $usuarios // Array con todos los usuarios
+            'usuarios'=> $usuarios
         ];
-        // Le pasamos a la vista los parametros
-        $this->vista('paginas/inicio', $datos);
+        $this->vista('paginas/sesion', $datos);
+    }
+
+    public function obtenerLoginPassword(){
+        //Obtener el login y password del formulario
+        if ($_SERVER['REQUEST_METHOD']=='POST') {
+            $login =  trim($_POST['login']);
+            $password = trim($_POST['password']);
+
+            //Obtener el login y password del base datos
+            $LoginPassword = $this->usuarioModelo->obtenerLogin($login);
+
+            if($LoginPassword==true){
+                $datos =[
+                    'usuarios'=> $LoginPassword
+                ];
+    
+                print_r($datos);
+            }else{
+                echo "El login no existe";
+            }
+            
+        }
+    }
+
+    public function verificarLoginPassword(){
+        $LoginPassword = $this->usuarioModelo->obtenerLogin();
+        $datos =[
+            'usuarios'=> $LoginPassword
+        ];
+
+        print_r($datos);
+        //$this->vista('paginas/sesion', $datos);
     }
 
     public function agregar() {

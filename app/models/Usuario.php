@@ -8,14 +8,28 @@ class Usuario {
     }
 
     public function obtenerUsuarios() {
-        $this->db->query("SELECT * from Usuarios");
+        $this->db->query("SELECT * from usuario");
+
+        $resultados = $this->db->registros();
+        return $resultados;
+    }
+
+    public function obtenerLogin($Login){
+        $this->db->query("SELECT * from usuario where LOGIN=$Login");
+         
+        $resultados = $this->db->registro();
+        return $resultados;
+    }
+
+    public function obtenerLoginPassword(){
+        $this->db->query("SELECT LOGIN, PASSWORD from usuario");
 
         $resultados = $this->db->registros();
         return $resultados;
     }
 
     public function agregarUsuario($datos){
-        $this->db->query("INSERT INTO usuarios (nombre, email, telefono) VALUES (:nombre, :email, :telefono)");
+        $this->db->query("INSERT INTO usuario (nombre, email, telefono) VALUES (:nombre, :email, :telefono)");
 
         // Vinculamos los valores
         $this->db->bind(":nombre", $datos["nombre"]);
@@ -30,3 +44,4 @@ class Usuario {
         }
     }
 }
+?>

@@ -9,16 +9,9 @@
   <link rel="stylesheet" href="<?php echo RUTA_URL; ?>/css/styles.css">
 </head>
 <body>
-  <header class=''>
-      <h1></h1>
+  <header class="mt-3">
+      <h1 class='text-center'>Alquila tu vehículo</h1>
   </hearde>
-  <div class="container mt-5">
-    <div class="list-group">
-      <a href="<?php echo RUTA_URL; ?>/clientes/agregar" class="list-group-item list-group-item-action">Alta</a>    
-    </div>
-    <div class="">
-      <a href=""></a>
-    </div>
-</div>
+  
 
 
