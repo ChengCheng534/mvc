@@ -6,42 +6,57 @@ class Usuarios extends Controlador{
 
     public function index() {
         $usuarios = $this->usuarioModelo->obtenerUsuarios();
-        $datos =[
-            'usuarios'=> $usuarios
-        ];
-        $this->vista('paginas/sesion', $datos);
+
+        $this->vista('paginas/home');
     }
 
-    public function obtenerLoginPassword(){
+    public function privada() {
+        $this->vista('paginas/sesion');
+    }
+
+    public function verificarLoginPassword(){
         //Obtener el login y password del formulario
         if ($_SERVER['REQUEST_METHOD']=='POST') {
             $login =  trim($_POST['login']);
             $password = trim($_POST['password']);
 
-            //Obtener el login y password del base datos
-            $LoginPassword = $this->usuarioModelo->obtenerLogin($login);
+            $datos =[
+                'Login'=> $login,
+                'Password'=> $password,
+                'errorLogin' =>'',
+                'errorPassword' =>'',
+            ];
 
-            if($LoginPassword==true){
-                $datos =[
-                    'usuarios'=> $LoginPassword
-                ];
+            //OBTIENE EL HASH DE USUARIO
+            $hash = $this->usuarioModelo->obtenerDatos($login);
+
+            //VERIFICA QUE EL USUARIO EXISTE EN EL BASE DE DATOS
+            if($hash){
+                //guardar en una variable el hash obtenido
+                $hashUsuario = $hash->PASSWORD;
+
+                if (password_verify($password, $hashUsuario)) {
+                    $this->vista('paginas/menu');
+                    return;
+
+                }else{
+                    $datos['errorPassword'] = 'El password es incorrecto';
+                }
     
-                print_r($datos);
             }else{
-                echo "El login no existe";
+                $datos['errorLogin'] = 'El usuario no es administrador';
             }
-            
+
+            $this->vista('paginas/sesion', $datos);
+        }else{
+            $datos =[
+                'Login'=> '',
+                'Password'=> '',
+                'errorLogin' =>'',
+                'errorPassword' =>'',
+            ];
+            $this->vista('paginas/sesion', $datos);
         }
-    }
-
-    public function verificarLoginPassword(){
-        $LoginPassword = $this->usuarioModelo->obtenerLogin();
-        $datos =[
-            'usuarios'=> $LoginPassword
-        ];
-
-        print_r($datos);
-        //$this->vista('paginas/sesion', $datos);
     }
 
     public function agregar() {

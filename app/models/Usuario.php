@@ -13,18 +13,23 @@ class Usuario {
         $resultados = $this->db->registros();
         return $resultados;
     }
+    
 
-    public function obtenerLogin($Login){
-        $this->db->query("SELECT * from usuario where LOGIN=$Login");
-         
-        $resultados = $this->db->registro();
+    public function obtenerDatos($login){
+        $this->db->query("SELECT PASSWORD from usuario where LOGIN=:usuario and GRUPO='admin'");
+        $this->db->bind(":usuario", $login);
+        
+        $resultados = $this->db->registro();        
+        
         return $resultados;
     }
 
-    public function obtenerLoginPassword(){
-        $this->db->query("SELECT LOGIN, PASSWORD from usuario");
-
-        $resultados = $this->db->registros();
+    public function obtenerPerfil($login){
+        $this->db->query("SELECT GRUPO from usuario where LOGIN=:usuario");
+        $this->db->bind(":usuario", $login);
+        
+        $resultados = $this->db->registro();        
+        
         return $resultados;
     }
 

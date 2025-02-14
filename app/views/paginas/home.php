@@ -4,7 +4,7 @@
 ?>
   <div class="container mt-3">
     <div class="col-12 list-group">
-      <a href="<?php echo RUTA_URL; ?>/paginas/privada" class="list-group-item list-group-item-action">Privada</a>    
+      <a href="<?php echo RUTA_URL; ?>/usuarios/privada" class="list-group-item list-group-item-action">Privada</a>    
     </div>
   </div>
 

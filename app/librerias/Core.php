@@ -15,7 +15,7 @@ class Core {
 
     // Establecemos controlador, metodo y parametros por defecto
     // En caso de que no venga indicado en la URL
-    protected $controladorActual = 'Paginas';
+    protected $controladorActual = 'Usuarios';
     protected $metodoActual = 'index';
     protected $parametros =[];
 
