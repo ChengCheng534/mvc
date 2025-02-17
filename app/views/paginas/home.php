@@ -10,6 +10,7 @@
 
   <div class="container mt-3">
     <p class>Bienvenido a mi pagina para alquilar tu vehiculo preferido.</p>
+    <img src="/public/img/Audi.png" alt="">
   </div>
 <?php
   // Cargamos el footer al final de la pagina
