@@ -66,7 +66,6 @@
             //print_r($datos);
             $this->db->query("UPDATE cliente SET documento_identidad=:documento_identidad, nombre=:nombre, apellidos=:apellidos, email=:email, telefono=:telefono, direccion=:direccion, fecha_nacimiento=:fecha_nacimiento, fotografia=:fotografia WHERE cliente_id=:cliente_id");
 
-            // Vinculamos los valores
             $this->db->bind(":cliente_id", $datos['Cliente']->cliente_id);
             $this->db->bind(":documento_identidad", $datos['Cliente']->documento_identidad);
             $this->db->bind(":nombre", $datos['Cliente']->nombre);

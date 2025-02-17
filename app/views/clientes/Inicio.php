@@ -6,7 +6,8 @@
 ?>
 <div class="container mt-5">
   <div class="list-group">
-    <a href="<?php echo RUTA_URL; ?>/clientes/agregar" class="list-group-item list-group-item-action">Alta</a>    
+    <a href="<?php echo RUTA_URL; ?>/paginas/menu" class="col-6 list-group-item list-group-item-action">Volver al menú</a>    
+    <a href="<?php echo RUTA_URL; ?>/clientes/agregar" class="col-6 list-group-item list-group-item-action">Dar alta a cliente</a>    
   </div>
 </div>
 <div class="container mt-5">

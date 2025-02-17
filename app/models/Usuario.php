@@ -48,5 +48,24 @@ class Usuario {
             return false;
         }
     }
+
+    public function editarVehiculo($datos){
+        $this->db->query("UPDATE vehiculo SET documento_identidad=:documento_identidad, nombre=:nombre, apellidos=:apellidos, email=:email, telefono=:telefono, direccion=:direccion, fecha_nacimiento=:fecha_nacimiento, fotografia=:fotografia WHERE cliente_id=:cliente_id");
+
+        // Vinculamos los valores
+        $this->db->bind(":cliente_id", $datos['Cliente']->cliente_id);
+        $this->db->bind(":documento_identidad", $datos['Cliente']->documento_identidad);
+        $this->db->bind(":nombre", $datos['Cliente']->nombre);
+        $this->db->bind(":apellidos", $datos['Cliente']->apellidos);
+        $this->db->bind(":email", $datos['Cliente']->email);
+        $this->db->bind(":telefono", $datos['Cliente']->telefono);
+
+        // Ejecutar la consulta
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
 ?>

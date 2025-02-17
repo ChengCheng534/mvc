@@ -11,53 +11,77 @@ class Usuarios extends Controlador{
     }
 
     public function privada() {
-        $this->vista('paginas/sesion');
+        $datos = [
+            'Login' => '',
+            'Password' => '',
+            'errorLogin' => '',
+            'errorPassword' => '',
+        ];
+        $this->vista('paginas/sesion', $datos);
     }
 
-    public function verificarLoginPassword(){
-        //Obtener el login y password del formulario
-        if ($_SERVER['REQUEST_METHOD']=='POST') {
-            $login =  trim($_POST['login']);
-            $password = trim($_POST['password']);
+    public function verificarLoginPassword() {
+        // Verifica si el formulario fue enviado mediante POST
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // Verifica si los campos de login y password están definidos en el POST
+            $login = isset($_POST['login']) ? trim($_POST['login']) : '';
+            $password = isset($_POST['password']) ? trim($_POST['password']) : '';
 
-            $datos =[
-                'Login'=> $login,
-                'Password'=> $password,
-                'errorLogin' =>'',
-                'errorPassword' =>'',
+            $datos = [
+                'Login' => $login,
+                'Password' => $password,
+                'errorLogin' => '',
+                'errorPassword' => '',
             ];
-
-            //OBTIENE EL HASH DE USUARIO
-            $hash = $this->usuarioModelo->obtenerDatos($login);
-
-            //VERIFICA QUE EL USUARIO EXISTE EN EL BASE DE DATOS
-            if($hash){
-                //guardar en una variable el hash obtenido
-                $hashUsuario = $hash->PASSWORD;
-
-                if (password_verify($password, $hashUsuario)) {
-                    $this->vista('paginas/menu');
-                    return;
-
-                }else{
-                    $datos['errorPassword'] = 'El password es incorrecto';
-                }
     
-            }else{
-                $datos['errorLogin'] = 'El usuario no es administrador';
+            // Si los campos están vacíos, asigna los errores correspondientes
+            if (empty($login)) {
+                $datos['errorLogin'] = 'Rellena el campo Login';
             }
-
+            if (empty($password)) {
+                $datos['errorPassword'] = 'Rellena el campo Password';
+            }
+    
+            // Si no hay errores en los campos, procedemos con la verificación
+            if (empty($datos['errorLogin']) && empty($datos['errorPassword'])) {
+                // Obtener el hash de usuario de la base de datos
+                $hash = $this->usuarioModelo->obtenerDatos($login);
+    
+                // Verificar si el usuario existe en la base de datos
+                if ($hash) {
+                    // Guardar el hash del usuario
+                    $hashUsuario = $hash->PASSWORD;
+    
+                    // Verificar si el password es correcto
+                    if (password_verify($password, $hashUsuario)) {
+                        // Si el login es correcto, redirige al menú
+                        $this->vista('paginas/menu');
+                        return;
+                    } else {
+                        // Si la contraseña es incorrecta, asigna el error correspondiente
+                        $datos['errorPassword'] = 'El password es incorrecto';
+                    }
+    
+                } else {
+                    // Si el usuario no existe, asigna el error correspondiente
+                    $datos['errorLogin'] = 'El usuario no es administrador';
+                }
+            }
+    
+            // Pasa los datos (con errores si los hay) a la vista de inicio de sesión
             $this->vista('paginas/sesion', $datos);
-        }else{
-            $datos =[
-                'Login'=> '',
-                'Password'=> '',
-                'errorLogin' =>'',
-                'errorPassword' =>'',
+        } else {
+            $datos = [
+                'Login' => '',
+                'Password' => '',
+                'errorLogin' => '',
+                'errorPassword' => '',
             ];
+            // Si no se ha enviado el formulario, simplemente carga la vista con los datos vacíos
             $this->vista('paginas/sesion', $datos);
         }
     }
+    
 
     public function agregar() {
         if ($_SERVER['REQUEST_METHOD']=='POST') {
@@ -78,7 +102,7 @@ class Usuarios extends Controlador{
                 'email'=> '',
                 'telefono'=> '',
             ];
-            $this->vista('paginas/agregar', $datos);
+            $this->vista('paginas/seccion', $datos);
         }
     }
 }

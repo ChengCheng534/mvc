@@ -11,11 +11,11 @@
         <h2 class=" mt-3 col-6 col-md-6 col-lg-6 offset-3 offset-md-3">Iniciar Sesión:</h2>
         <form action="<?php echo RUTA_URL; ?>/Usuarios/verificarLoginPassword" method="POST" class="row mt-3 col-6 col-md-4 col-lg-2 offset-3 offset-md-4 offset-lg-5">
             <label for="login">Login:</label>
-            <input type="text" id="login" name="login" placeholder="Introduce el Login" value="" required>
+            <input type="text" id="login" name="login" placeholder="Introduce el Login" value="<?php echo $datos['Login'];?>">
             <span class="error text-danger">*<?php echo $datos['errorLogin'];?></span>
 
             <label for="password">Password:</label>
-            <input type="text" id="password" name="password" placeholder="Introduce el Password" required>
+            <input type="text" id="password" name="password" placeholder="Introduce el Password">
             <span class="error text-danger">*<?php echo $datos['errorPassword'];?></span>
 
             <button type="submit" class="mt-3">Iniciar Sesión</button>
