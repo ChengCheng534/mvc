@@ -25,7 +25,7 @@ class Usuario {
     }
 
     public function obtenerPerfil($login){
-        $this->db->query("SELECT GRUPO from usuario where LOGIN=:usuario");
+        $this->db->query("SELECT PASSWORD, GRUPO from usuario where LOGIN=:usuario");
         $this->db->bind(":usuario", $login);
         
         $resultados = $this->db->registro();        

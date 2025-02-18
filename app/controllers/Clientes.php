@@ -6,14 +6,30 @@ class Clientes extends Controlador{
       $this->clienteModelo = $this->modelo('Cliente');
     }
 
-    //Ejercicios 1
-    public function index(){
+    public function index() {
+        // Inicia la sesión si aún no está iniciada
+        if(session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        // Verificar si el usuario está autenticado
+        if (!isset($_SESSION['usuario_logueado'])) {
+            // Si no está autenticado, redirigir al formulario de login
+            header('Location: ' . RUTA_URL . '/mvc/paginas/sesion');
+            exit();  // Detener la ejecución del código
+        }
+
+        // Si está autenticado, proceder con la obtención de los clientes
         $clientes = $this->clienteModelo->obtenerClientes();
-        $datos =[
-            'Clientes'=> $clientes // Array con todos los Clientes
+        $datos = [
+            'Clientes' => $clientes
         ];
+
+        // Cargar la vista con los datos de los clientes
         $this->vista('clientes/inicio', $datos);
+        
     }
+    
     //Ejercicios 3
     public function agregar() {
         if ($_SERVER['REQUEST_METHOD']=='POST') {

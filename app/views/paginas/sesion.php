@@ -4,7 +4,7 @@
 ?>
 <div class="container mt-3">
     <div class="col-12 list-group">
-      <a href="<?php echo RUTA_URL; ?>/paginas/home" class="list-group-item list-group-item-action">Volver</a>    
+      <a href="<?php echo RUTA_URL; ?>/paginas" class="list-group-item list-group-item-action">Volver</a>    
     </div>
 </div>
   <div class="container text-center">

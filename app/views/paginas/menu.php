@@ -4,7 +4,7 @@
 ?>
   <div class="container mt-3">
     <div class="col-12 list-group">
-      <a href="<?php echo RUTA_URL; ?>/paginas/home" class="list-group-item list-group-item-action">Volver al página inicio</a>    
+      <a href="" class="list-group-item list-group-item-action">Cerrar Sesión</a>    
     </div>
   </div>
   <nav class="container mt-3">

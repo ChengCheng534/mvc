@@ -45,26 +45,36 @@ class Usuarios extends Controlador{
             // Si no hay errores en los campos, procedemos con la verificación
             if (empty($datos['errorLogin']) && empty($datos['errorPassword'])) {
                 // Obtener el hash de usuario de la base de datos
-                $hash = $this->usuarioModelo->obtenerDatos($login);
+                $hash = $this->usuarioModelo->obtenerPerfil($login);
     
                 // Verificar si el usuario existe en la base de datos
                 if ($hash) {
                     // Guardar el hash del usuario
                     $hashUsuario = $hash->PASSWORD;
-    
-                    // Verificar si el password es correcto
-                    if (password_verify($password, $hashUsuario)) {
-                        // Si el login es correcto, redirige al menú
-                        $this->vista('paginas/menu');
-                        return;
-                    } else {
-                        // Si la contraseña es incorrecta, asigna el error correspondiente
-                        $datos['errorPassword'] = 'El password es incorrecto';
+                    $perfilUsuario = $hash->GRUPO;
+
+                    if($perfilUsuario=='ADMIN'){
+                        // Verificar si el password es correcto
+                        if (password_verify($password, $hashUsuario)) {
+                            // Si el login es correcto, guardamos los datos en la sesión
+                            session_start();  // Iniciar sesión si aún no está iniciada
+                            $_SESSION['usuario_logueado'] = [
+                                'login' => $login,
+                            ];
+
+                            $this->vista('paginas/menu');
+                            return;
+                        } else {
+                            // Si la contraseña es incorrecta, asigna el error correspondiente
+                            $datos['errorPassword'] = 'El password es incorrecto';
+                        }
+                    }else{
+                        $datos['errorLogin'] = 'El usuario no es administrador';
                     }
     
                 } else {
                     // Si el usuario no existe, asigna el error correspondiente
-                    $datos['errorLogin'] = 'El usuario no es administrador';
+                    $datos['errorLogin'] = 'El usuario no esta registrado';
                 }
             }
     
@@ -82,7 +92,6 @@ class Usuarios extends Controlador{
         }
     }
     
-
     public function agregar() {
         if ($_SERVER['REQUEST_METHOD']=='POST') {
             $datos =[
