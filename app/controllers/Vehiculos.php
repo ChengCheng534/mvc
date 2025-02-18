@@ -36,19 +36,19 @@ class Vehiculos extends Controlador{
             }
 
             if(empty($_POST['matricula'])){
-                $datos['errorMatricula'] = "El campo de documento identidad es requerido";
+                $datos['errorMatricula'] = "El campo de matricula es requerido";
             }else{
                 $datos['errorMatricula'] = '';
             }
 
             if(empty($_POST['marca'])){
-                $datos['errorMarca'] = "El campo de documento identidad es requerido";
+                $datos['errorMarca'] = "El campo de marca es requerido";
             }else{
                 $datos['errorMarca'] = '';
             }
 
             if(empty($_POST['imagen'])){
-                $datos['errorImagen'] = "El campo de documento identidad es requerido";
+                $datos['errorImagen'] = "El campo de imagen es requerido";
             }else{
                 $datos['errorImagen'] = '';
             }
@@ -107,8 +107,56 @@ class Vehiculos extends Controlador{
         $this->vista('vehiculos/editar', $datos);
     }
 
-    public function Editar($matricula){
-        echo "Adios";
+    public function editar() {
+        if ($_SERVER['REQUEST_METHOD']=='POST') {
+            $obj = new Vehiculo();
+            $obj->MATRICULA = trim($_POST['matricula']);
+            $obj->MARCA = trim($_POST['marca']);
+            $obj->MODELO=trim($_POST['modelo']);
+            $obj->POTENCIA=trim($_POST['potencia']);
+            $obj->VELOCIDAD_MAX=trim($_POST['velocidad_max']);
+            $obj->IMAGEN=trim($_POST['imagen']);
+
+            $datos =[
+                'vehiculo'=>$obj,
+                'errorMatricula' => '',
+                'errorMarca' => '',
+                'errorImagen' => '',
+            ];
+    
+                if(empty($_POST['marca'])){
+                    $datos['errorMarca'] = "El campo de marca es requerido";
+                }else{
+                    $datos['errorMarca'] = '';
+                }
+    
+                if(empty($_POST['imagen'])){
+                    $datos['errorImagen'] = "El campo de imagen es requerido";
+                }else{
+                    $datos['errorImagen'] = '';
+                }
+            
+                if ($datos['errorMarca']=='' && $datos['errorImagen']=='') {
+                    if ($this->vehiculoModelo->editarVehiculo($datos)){
+                        redireccionar('/vehiculos');
+                    } 
+                }
+                $this->vista('vehiculos/editar', $datos);                
+            
+        } else {
+            $datos =[
+                'matricula'=> '',
+                'marca'=> '',
+                'modelo'=> '',
+                'potencia'=> '',
+                'velocidad_max'=> '',
+                'imagen'=> '',
+                'errorMatricula' => '',
+                'errorMarca' => '',
+                'errorImagen' => '',
+            ];
+            $this->vista('vehiculos/editar', $datos);
+        }
     }
     
 }
