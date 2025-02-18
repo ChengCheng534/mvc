@@ -10,7 +10,6 @@
 
   <div class="container mt-3">
     <p class>Bienvenido a mi pagina para alquilar tu vehiculo preferido.</p>
-    <?php header('Location: ' . RUTA_URL . '/mvc/paginas/sesion');?>
   </div>
 <?php
   // Cargamos el footer al final de la pagina
