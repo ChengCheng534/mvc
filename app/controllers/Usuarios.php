@@ -7,17 +7,11 @@ class Usuarios extends Controlador{
     public function index() {
         $usuarios = $this->usuarioModelo->obtenerUsuarios();
 
-        $this->vista('paginas/home');
-    }
-
-    public function privada() {
-        $datos = [
-            'Login' => '',
-            'Password' => '',
-            'errorLogin' => '',
-            'errorPassword' => '',
+        $datos =[
+            'Usuarios' => '',
         ];
-        $this->vista('paginas/sesion', $datos);
+
+        $this->vista('usuarios/inicio', $datos);
     }
 
     public function verificarLoginPassword() {
