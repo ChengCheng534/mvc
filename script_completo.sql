@@ -29,13 +29,13 @@ CREATE TABLE `alquiler` (
   `LUGAR_RECOGIDA` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `FECHA_RECOGIDA` varchar(10) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `FECHA_DEVOLUCION` varchar(10) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `PRECIO` decimal(3,2) DEFAULT NULL,
+  `PRECIO` decimal(10,2) DEFAULT NULL,
   PRIMARY KEY (`ALQUILER_ID`),
   KEY `CLIENTE_ID` (`CLIENTE_ID`),
   KEY `MATRICULA` (`MATRICULA`),
   CONSTRAINT `alquiler_ibfk_1` FOREIGN KEY (`CLIENTE_ID`) REFERENCES `cliente` (`cliente_id`),
   CONSTRAINT `alquiler_ibfk_2` FOREIGN KEY (`MATRICULA`) REFERENCES `vehiculo` (`MATRICULA`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -44,6 +44,7 @@ CREATE TABLE `alquiler` (
 
 LOCK TABLES `alquiler` WRITE;
 /*!40000 ALTER TABLE `alquiler` DISABLE KEYS */;
+INSERT INTO `alquiler` VALUES (1,2,'1234ASA','Aeropuerto','2025-02-20','2025-02-25',150.00);
 /*!40000 ALTER TABLE `alquiler` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -66,7 +67,7 @@ CREATE TABLE `cliente` (
   `fotografia` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`cliente_id`),
   UNIQUE KEY `documento_identidad` (`documento_identidad`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -75,7 +76,7 @@ CREATE TABLE `cliente` (
 
 LOCK TABLES `cliente` WRITE;
 /*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
-INSERT INTO `cliente` VALUES (2,'I2141346B','Juan','Perez Galde','luislopez@gmail.com',213123,'calle benito','2025-01-03','imagen.jpg'),(7,'X7834782N','hola','Lopez Martin','carmenpez@gmail.com',333999999,'calle hola','2025-01-03','');
+INSERT INTO `cliente` VALUES (2,'I2141346B','Juan','Perez Galde','luislopez@gmail.com',213123,'calle benito','2025-01-03','imagen.jpg'),(7,'X7834782N','hola','Lopez Martin','carmenpez@gmail.com',333999999,'calle hola','2025-01-03','mclaren.png'),(11,'I2134612B','Angela','celalla','yushen740@gmail.com',999999999,'calle hola','2025-02-14',''),(12,'X8355111X','asoidn','asfdsa','luislopez@gmail.com',234324232,'calle benito','2025-02-01','galaxia.jpg');
 /*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -159,7 +160,7 @@ CREATE TABLE `vehiculo` (
 
 LOCK TABLES `vehiculo` WRITE;
 /*!40000 ALTER TABLE `vehiculo` DISABLE KEYS */;
-INSERT INTO `vehiculo` VALUES ('1234ASA','BMW','wqe',123,123,'caja.png'),('1234ASX','BMW','',1,1,'estrella.png'),('1234LHH','BMW','M4',200,320,'titulo.png'),('1255ASD','BMW','M4',0,0,'titulo.png'),('7777ASA','BMW','M4',210,320,'titulo.png');
+INSERT INTO `vehiculo` VALUES ('1234ASA','BMW','wqe',123,123,'caja.png'),('1234ASX','BMW','',1,1,'estrella.png'),('1234LHH','BMW','M4',200,320,'titulo.png'),('1255ASD','BMW','M4',0,0,'titulo.png'),('7777ASA','BMW','M1',210,320,'Porsche.jpg');
 /*!40000 ALTER TABLE `vehiculo` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -172,4 +173,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-02-17 21:03:24
+-- Dump completed on 2025-02-19 20:03:13
