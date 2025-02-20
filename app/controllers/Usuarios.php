@@ -47,7 +47,7 @@ class Usuarios extends Controlador{
                     $hashUsuario = $hash->PASSWORD;
                     $perfilUsuario = $hash->GRUPO;
 
-                    if($perfilUsuario=='ADMIN'){
+                    if($perfilUsuario ==='ADMIN'){
                         // Verificar si el password es correcto
                         if (password_verify($password, $hashUsuario)) {
                             // Si el login es correcto, guardamos los datos en la sesión

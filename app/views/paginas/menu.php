@@ -1,6 +1,16 @@
 <?php 
   // Cargamos el header previamente
   require RUTA_APP . '/views/inc/header.php';
+
+  // Verificar si el usuario está autenticado
+  if (!isset($_SESSION['usuario_logueado'])) {
+    // Redirigir al login si no está autenticado
+    header("Location: " . RUTA_URL . "/paginas/sesion");
+    exit;
+  }
+
+  // Cargamos el header previamente
+  require RUTA_APP . '/views/inc/header.php';
 ?>
   <div class="container mt-3">
     <div class="col-12 list-group">

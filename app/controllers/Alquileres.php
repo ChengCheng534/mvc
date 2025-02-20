@@ -7,21 +7,12 @@ class Alquileres extends Controlador{
     }
 
     public function index() {
-        $obj = new Alquiler();
-        $obj->alquiler_id = '';
-        $obj->cliente_id = '';
-        $obj->matricula = '';
-        $obj->lugar_recogida = '';
-        $obj->fecha_recogida = '';
-        $obj->fecha_devolucion= '';
-        $obj->precio= '';
-
         $datos =[
-            'Vehiculos' => $obj,
+            'Vehiculos' => new Alquiler(),
             'fechaInicial' => '',
             'finalAlquiler' => '',
             'errorFechaInicial' => '',
-            'erroeFechaArquiler' => '',
+            'errorFechaArquiler' => '',
         ];
 
         $this->vista('paginas/home', $datos);
@@ -38,43 +29,44 @@ class Alquileres extends Controlador{
     }
 
     public function mostrarVehiculos() {
-        if ($_SERVER['REQUEST_METHOD']=='POST') {
-            $datos =[
-                'Vehiculos' => '',
-                'fechaInicial' => trim($_POST['fecha_inicial']),
-                'finalAlquiler' => trim($_POST['final_alquiler']),
-                'errorFechaInicial' => '',
-                'erroeFechaArquiler' => '',
-            ];
+        $datos = [
+            'Vehiculos' => new Alquiler(),
+            'fechaInicial' => '',
+            'finalAlquiler' => '',
+            'errorFechaInicial' => '',
+            'errorFechaArquiler' => '',
+        ];
+    
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // Recoger datos del formulario
+            $datos['fechaInicial'] = trim($_POST['fecha_inicial'] ?? '');
+            $datos['finalAlquiler'] = trim($_POST['final_alquiler'] ?? '');
+    
+            // Validación de fechas
+            if (empty($datos['fechaInicial'])) {
+                $datos['errorFechaInicial'] = "Introduce la fecha inicial";
+            }
+    
+            if (empty($datos['finalAlquiler'])) {
+                $datos['errorFechaArquiler'] = "Introduce la fecha de alquiler";
 
-            $vehiculoNoAlquilado = $this->alquilerModelo->vehiculosDisponibles($datos);
-            $datos['Vehiculos'] = $vehiculoNoAlquilado;
+            } elseif (!empty($datos['fechaInicial']) && $datos['finalAlquiler'] <= $datos['fechaInicial']) {
+                $datos['errorFechaArquiler'] = "La fecha de alquiler debe ser mayor que la fecha inicial";
+            }
+    
+            // Si no hay errores, buscar vehículos disponibles
+            if (empty($datos['errorFechaInicial']) && empty($datos['errorFechaArquiler'])) {
+                $datos['Vehiculos'] = $this->alquilerModelo->vehiculosDisponibles($datos);
 
-            if(empty($_POST['fechaInicial'])){
-                $datos['errorFechaInicial'] = "Introduce la fecha de inicial";
-            }else{
-                $datos['errorFechaInicial'] = '';
+                $this->vista('paginas/home', $datos);
             }
 
-            if(empty($_POST['finalAlquiler'])){
-                $datos['erroeFechaArquiler'] = "Introduce la fecha de alquiler";
-            }else{
-                $datos['erroeFechaArquiler'] = '';
-            }
-            
-
-            $this->vista('paginas/home', $datos); 
-        }else{
-            $vehiculoNoAlquilado = $this->alquilerModelo->obtenerVehiculos();
-            $datos =[
-                'Vehiculos' => '',
-                'fechaInicial' => '',
-                'finalAlquiler' => '',
-            ];
-            $datos['Vehiculos'] = $vehiculoNoAlquilado;
-
-            $this->vista('paginas/home', $datos); 
+            //Si hay errores, vuelve a la pagina con errores
+            $this->vista('paginas/home', $datos);
         }
+    
+        // Cargar la vista con los datos
+        $this->vista('paginas/home', $datos);
     }
 
     public function registrarCliente($matricula) {

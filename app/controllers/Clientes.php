@@ -1,12 +1,18 @@
 <?php
 class Clientes extends Controlador{
     public function __construct() {
-      //1) Acceso al modelo
-      //$this->usuarioModelo = $this->modelo('Usuario');
-      $this->clienteModelo = $this->modelo('Cliente');
+        session_start(); // Iniciar sesión si no está iniciada
+        //1) Acceso al modelo
+
+        // Verificar si el usuario está autenticado
+        if (!isset($_SESSION['usuario_logueado'])) {
+            $this->vista('paginas/');
+        }
+
+        $this->clienteModelo = $this->modelo('Cliente');
     }
 
-    public function index() {
+    public function index1() {
         // Si está autenticado, proceder con la obtención de los clientes
         $clientes = $this->clienteModelo->obtenerClientes();
         $datos = [
@@ -17,6 +23,30 @@ class Clientes extends Controlador{
         $this->vista('clientes/inicio', $datos);
         
     }
+
+    public function index() {
+        // Iniciar la sesión si no está iniciada
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+    
+        // Verificar si el usuario está autenticado
+        if (!isset($_SESSION['usuario_logueado'])) {
+            // Si no está autenticado, redirigirlo al login
+            header('Location: ' . RUTA_URL . '/usuarios/login');
+            exit;
+        }
+    
+        // Si está autenticado, obtener los clientes
+        $clientes = $this->clienteModelo->obtenerClientes();
+        $datos = [
+            'Clientes' => $clientes
+        ];
+    
+        // Cargar la vista con los datos de los clientes
+        $this->vista('clientes/inicio', $datos);
+    }
+    
     
     //Ejercicios 3
     public function agregar() {
@@ -73,6 +103,7 @@ class Clientes extends Controlador{
             ];
             $this->vista('clientes/agregar', $datos);
         }
+        echo "hola";
     }
 
     public function visualizarBorrado($cliente_id){

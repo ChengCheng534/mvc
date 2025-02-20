@@ -31,8 +31,8 @@ class Vehiculos extends Controlador{
                 $datos['potencia'] = '0';
             }
 
-            if(empty($_POST['velocidad_max'])){
-                $datos['velocidad_max'] = '0';
+            if(empty($_POST['velocidad_Max'])){
+                $datos['velocidad_Max'] = '0';
             }
 
             if(empty($_POST['matricula'])){
@@ -54,7 +54,7 @@ class Vehiculos extends Controlador{
             }
 
             if ($datos['errorMatricula']=='' && $datos['errorMarca']=='' && $datos['errorImagen']=='') {
-                if ($this->vehiculoModelo->agregarVehiculos($datos)){
+                if ($this->vehiculoModelo->agregarVehiculo($datos)){
                     redireccionar('/vehiculos');
                 } else {
                     die ("No se pudo realizar el alta");

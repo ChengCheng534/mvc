@@ -22,7 +22,7 @@
 
         <label for="final_Alquiler" class="offset-md-1"> Final de alquiler</label>
         <input type="date" name="final_alquiler" value="<?php echo $datos['finalAlquiler'];?>">
-        <span class="error">*<?php echo $datos['erroeFechaArquiler']; ?></span>
+        <span class="error">*<?php echo $datos['errorFechaArquiler']; ?></span>
           
         <input type="submit" value="Disponibilidad">
       </form>
