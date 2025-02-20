@@ -36,6 +36,15 @@
             return $resultados;
         }
 
+        public function verificarCliente($nombre){
+            $this->db->query("SELECT * from cliente WHERE nombre=:nombre");
+
+            $this->db->bind(":nombre", $nombre);
+    
+            $resultados = $this->db->registro();
+            return $resultados;
+        }
+
 
 
     }

@@ -53,9 +53,8 @@
           echo "<td rowspan='1'>" . $vehiculos->POTENCIA . "</td>";
           echo "<td rowspan='1'>" . $vehiculos->VELOCIDAD_MAX . "</td>";
           echo "<td rowspan='1'>" . $vehiculos->IMAGEN . "</td>";
-          echo "<td><a href=\"registrarCliente/$vehiculos->MATRICULA\">Alquilar</a></td>";
+          echo "<td><a href=\"alquilarVehiculo/$vehiculos->MATRICULA\">Alquilar</a></td>";
           echo "</tr>";
-
         }
       ?>
     </tbody>
