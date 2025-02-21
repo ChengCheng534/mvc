@@ -36,10 +36,11 @@
             return $resultados;
         }
 
-        public function verificarCliente($nombre){
-            $this->db->query("SELECT * from cliente WHERE nombre=:nombre");
+        public function verificarCliente($datos){
+            $this->db->query("SELECT * from cliente WHERE nombre=:nombre AND apellidos=:apellidos");
 
-            $this->db->bind(":nombre", $nombre);
+            $this->db->bind(":nombre", $datos['nombre']);
+            $this->db->bind(":apellidos", $datos['apellidos']);
     
             $resultados = $this->db->registro();
             return $resultados;

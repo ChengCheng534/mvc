@@ -70,7 +70,7 @@ class Alquileres extends Controlador{
         $this->vista('paginas/home', $datos);
     }
 
-    public function alquilarVehiculo($matricula){
+    public function alquilarVehiculo1($matricula){
         $datos = [
             'nombre' => '',
             'apellidos' => '',
@@ -83,64 +83,17 @@ class Alquileres extends Controlador{
         ];
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-            if (empty($_POST["nombre"])) {
-                $datos['errorNombre'] = "Introduce tu nombre";
-            } else {
-                $datos['nombre'] = trim($_POST['nombre'] ?? '');
-                
-                if (!preg_match("/^[a-zA-Z-' ]*$/", $datos['nombre'])) {
-                    $datos['errorNombre'] = "El formato de nombre es incorrecto";
-                }
-            }
-
-            if (empty($_POST['apellidos'])) {
-                $datos['errorApellidos'] = "Introduce tus apellidos";
-            } else {
-                $datos['apellidos'] = trim($_POST['apellidos'] ?? '');
-                
-                if (!preg_match("/^[a-zA-Z-' ]+$/", $datos['apellidos'])) {
-                    $datos['errorApellidos'] = "El formato de apellido es incorrecto";
-                }
-            }
-              
-            if (empty($_POST["email"])) {
-                $datos['errorEmail'] = "Introduce el correo";
-            } else {
-                $datos['email'] = trim($_POST['email'] ?? '');
-                
-                if (!preg_match("/^[a-zA-Z][a-zA-Z0-9@]*@[a-zA-Z0-9.-]+\.com$/", $datos['email'])) {
-                    $datos['errorEmail'] = "El formato de correo es incorrecto";
-                }
-            }
-
-            // Si no hay errores, buscar vehículos disponibles
-            if (empty($datos['errorNombre']) && empty($datos['errorApellidos']) && empty($datos['errorEmail']) ) {
-                $nombre = $datos['nombre'];
-                $apellidos = $datos['apellidos'];
- 
-                $datos['cliente'] = $this->alquilerModelo->verificarCliente($nombre);
-
-                /*
-                if ($clientes) {
-                    $datos['errorCliente'] = "Eres cliente";
-                    $this->vista('alquilar/factura', $datos);
-                    return;
-                }else{
-                    $datos['errorCliente'] = "No eres clientes";
-                }
-                */
-                
-            }
+            echo "hola";
+            
 
             //Si hay errores, vuelve a la pagina con errores
-            $this->vista('alquilar/registrar', $datos);
+            $this->vista('alquilar/iniciarSesion', $datos);
         }
 
-        $this->vista('alquilar/registrar', $datos);
+        $this->vista('alquilar/iniciarSesion', $datos);
     }
 
-    public function alquilarVehiculo1($matricula) {
+    public function alquilarVehiculo($matricula) {
         $datos = [
             'nombre' => '',
             'apellidos' => '',
@@ -186,28 +139,28 @@ class Alquileres extends Controlador{
 
             // Si no hay errores, buscar vehículos disponibles
             if (empty($datos['errorNombre']) && empty($datos['errorApellidos']) && empty($datos['errorEmail']) ) {
-                $nombre = $datos['nombre'];
-                $apellidos = $datos['apellidos'];
  
-                $datos['cliente'] = $this->alquilerModelo->verificarCliente($nombre);
+                $cliente = $this->alquilerModelo->verificarCliente($datos);
+                //$datos['cliente'] = $cliente;
 
-                /*
-                if ($clientes) {
-                    $datos['errorCliente'] = "Eres cliente";
-                    $this->vista('alquilar/factura', $datos);
-                    return;
+                if ($cliente) {
+                    if ($datos['email']==$cliente->email) {
+                        
+                        $this->vista('alquilar/factura', $cliente);
+                        return;
+                    }else{
+                        $datos['errorEmail'] = "El correo electrónico es incorrecto";
+                    }
                 }else{
                     $datos['errorCliente'] = "No eres clientes";
                 }
-                */
-                return;
             }
 
             //Si hay errores, vuelve a la pagina con errores
-            $this->vista('alquilar/registrar', $datos);
+            $this->vista('alquilar/iniciarSesion', $datos);
         }
 
-        $this->vista('alquilar/registrar', $datos);
+        $this->vista('alquilar/iniciarSesion', $datos);
     }
 
 }

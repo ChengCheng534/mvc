@@ -1,9 +1,7 @@
 <?php 
   // Cargamos el header previamente
   require RUTA_APP . '/views/inc/header.php';
-  
-  print_r($datos);
-  echo $datos['matricula'];
+  //print_r($datos);
 ?>
 <div class="container mt-3">
     <div class="col-12 list-group">
@@ -11,8 +9,8 @@
     </div>
 </div>
   <div class="container text-center">
-        <h2 class=" mt-3 col-6 col-md-6 col-lg-6 offset-3 offset-md-3">Resgistrarte como cliente:</h2>
-        <form action="<?php echo RUTA_URL; ?>/Alquileres/alquilarVehiculo/<?php echo $matricula; ?>" method="POST" class="row mt-3 col-6 col-md-4 col-lg-4 offset-3 offset-md-4 offset-lg-4">
+        <h2 class=" mt-3 col-6 col-md-6 col-lg-6 offset-3 offset-md-3">Inicia tu sesion de cliente:</h2>
+        <form action="<?php echo RUTA_URL; ?>/Alquileres/alquilarVehiculo/" method="POST" class="row mt-3 col-6 col-md-4 col-lg-4 offset-3 offset-md-4 offset-lg-4">
             <label for="Nombre">Nombre:</label>
             <input type="text" id="nombre" name="nombre" placeholder="Introduce el nombre" value="<?php echo $datos['nombre'];?>">
             <span class="error text-danger">*<?php echo $datos['errorNombre'];?></span>
