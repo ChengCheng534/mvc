@@ -10,7 +10,7 @@
 </head>
 <body>
   <header class="mt-3">
-      <h1 class='text-center'>Alquila tu vehículo</h1>
+      <h1 class='text-center'>ALQUILA TU VEHÍCULO</h1>
   </hearde>
   
 

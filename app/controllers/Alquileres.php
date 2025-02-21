@@ -70,89 +70,61 @@ class Alquileres extends Controlador{
         $this->vista('paginas/home', $datos);
     }
 
-    public function alquilarVehiculo1($matricula){
-        $datos = [
-            'nombre' => '',
-            'apellidos' => '',
-            'email' => '',
-            'errorNombre' => '',
-            'errorApellidos' => '',
-            'errorEmail' => '',
-            'errorCliente' => '',
-            'matricula' => $matricula,
-        ];
-
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            echo "hola";
-            
-
-            //Si hay errores, vuelve a la pagina con errores
-            $this->vista('alquilar/iniciarSesion', $datos);
-        }
-
-        $this->vista('alquilar/iniciarSesion', $datos);
-    }
-
     public function alquilarVehiculo($matricula) {
         $datos = [
-            'nombre' => '',
-            'apellidos' => '',
-            'email' => '',
-            'errorNombre' => '',
-            'errorApellidos' => '',
-            'errorEmail' => '',
+            'login' => '',
+            'password' => '',
+            'errorLogin' => '',
+            'errorPassword' => '',
             'errorCliente' => '',
             'matricula' => $matricula,
         ];
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $datos['matricula'] = trim($_POST['matricula'] ?? '');
+            $matricula = $datos['matricula'];
 
-            if (empty($_POST["nombre"])) {
-                $datos['errorNombre'] = "Introduce tu nombre";
+            if (empty($_POST["login"])) {
+                $datos['errorLogin'] = "El login es obrigatorio";
             } else {
-                $datos['nombre'] = trim($_POST['nombre'] ?? '');
+                $datos['login'] = trim($_POST['login'] ?? '');
                 
-                if (!preg_match("/^[a-zA-Z-' ]*$/", $datos['nombre'])) {
-                    $datos['errorNombre'] = "El formato de nombre es incorrecto";
+                if (!preg_match("/^[a-zA-Z-' ]*$/", $datos['login'])) {
+                    $datos['errorLogin'] = "El formato de login es incorrecto";
                 }
             }
 
-            if (empty($_POST['apellidos'])) {
-                $datos['errorApellidos'] = "Introduce tus apellidos";
+            if (empty($_POST['password'])) {
+                $datos['errorPassword'] = "El password es obrigatorio";
             } else {
-                $datos['apellidos'] = trim($_POST['apellidos'] ?? '');
+                $datos['password'] = trim($_POST['password'] ?? '');
                 
-                if (!preg_match("/^[a-zA-Z-' ]+$/", $datos['apellidos'])) {
-                    $datos['errorApellidos'] = "El formato de apellido es incorrecto";
-                }
-            }
-              
-            if (empty($_POST["email"])) {
-                $datos['errorEmail'] = "Introduce el correo";
-            } else {
-                $datos['email'] = trim($_POST['email'] ?? '');
-                
-                if (!preg_match("/^[a-zA-Z][a-zA-Z0-9@]*@[a-zA-Z0-9.-]+\.com$/", $datos['email'])) {
-                    $datos['errorEmail'] = "El formato de correo es incorrecto";
+                if (!preg_match("/^[a-zA-Z0-9]+$/", $datos['password'])) {
+                    $datos['errorPassword'] = "El formato de password es incorrecto";
                 }
             }
 
-            // Si no hay errores, buscar vehículos disponibles
-            if (empty($datos['errorNombre']) && empty($datos['errorApellidos']) && empty($datos['errorEmail']) ) {
- 
+            if (empty($datos['errorLogin']) && empty($datos['errorPassword'])) {
+                //Verificar que el cliente existe
                 $cliente = $this->alquilerModelo->verificarCliente($datos);
-                //$datos['cliente'] = $cliente;
+                $vehiculo = $this->alquilerModelo->obtenerVehiculo($matricula);
+
+                $datos['cliente'] = $cliente;
+                $datos['vehiculo'] = $vehiculo;
 
                 if ($cliente) {
-                    if ($datos['email']==$cliente->email) {
+                    //sacar el hash de cliente
+                    $hash = $cliente->password;
+
+                    if (password_verify($datos['password'], $hash)) {
                         
-                        $this->vista('alquilar/factura', $cliente);
+                        $this->vista('alquilar/factura', $datos);
                         return;
                     }else{
-                        $datos['errorEmail'] = "El correo electrónico es incorrecto";
+                        $datos['errorPassword'] = "El password es incorrecto";
                     }
                 }else{
-                    $datos['errorCliente'] = "No eres clientes";
+                    $datos['errorCliente'] = "No eres clientes, no está registrado";
                 }
             }
 

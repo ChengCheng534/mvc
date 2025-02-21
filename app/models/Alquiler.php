@@ -37,16 +37,21 @@
         }
 
         public function verificarCliente($datos){
-            $this->db->query("SELECT * from cliente WHERE nombre=:nombre AND apellidos=:apellidos");
+            $this->db->query("SELECT * from cliente WHERE login=:login");
 
-            $this->db->bind(":nombre", $datos['nombre']);
-            $this->db->bind(":apellidos", $datos['apellidos']);
+            $this->db->bind(":login", $datos['login']);
     
             $resultados = $this->db->registro();
             return $resultados;
         }
 
-
-
+        public function obtenerVehiculo($matricula) {
+            $this->db->query("SELECT * from vehiculo where MATRICULA=:matricula");
+    
+            $this->db->bind(":matricula", $matricula);
+    
+            $resultados = $this->db->registro();
+            return $resultados;
+        }
     }
 ?>

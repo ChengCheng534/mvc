@@ -1,6 +1,7 @@
 <?php 
   // Cargamos el header previamente
   require RUTA_APP . '/views/inc/header.php';
+
 ?>
 <div class="container mt-3">
     <div class="col-12 list-group">
