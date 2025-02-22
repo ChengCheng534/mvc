@@ -11,8 +11,10 @@
   <div class="container text-center">
         <h2 class=" mt-3 col-6 col-md-6 col-lg-6 offset-3 offset-md-3">Inicia tu sesion de cliente:</h2>
         <form action="<?php echo RUTA_URL; ?>/Alquileres/alquilarVehiculo/" method="POST" class="row mt-3 col-6 col-md-4 col-lg-4 offset-3 offset-md-4 offset-lg-4">
-            <!-- Campo oculto para enviar la matrícula -->
+            <!-- Campo oculto para enviar los datos -->
             <input type="hidden" name="matricula" value="<?php echo $datos['matricula']; ?>">
+            <input type="hidden" name="fecha_inicial" value="<?php echo $datos['fecha_inicial']; ?>">
+            <input type="hidden" name="fecha_final" value="<?php echo $datos['fecha_final']; ?>">
         
             <label for="Login">Login:</label>
             <input type="text" id="login" name="login" placeholder="Introduce el login" value="<?php echo $datos['login'];?>">

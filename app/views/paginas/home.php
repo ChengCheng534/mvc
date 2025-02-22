@@ -44,16 +44,20 @@
     </thead>
     <tbody>
       <?php
+      //$fechas = $datos['fechaInicial'].','.$datos['finalAlquiler'];
+
         // Recorrer el array $datos y crear las filas de la tabla
         foreach ($datos['Vehiculos'] as $vehiculos) {
           echo "<tr>";
           echo "<td rowspan='1'>" . $vehiculos->MATRICULA . "</td>";
+          $matricula = $vehiculos->MATRICULA;
           echo "<td rowspan='1'>" . $vehiculos->MARCA . "</td>";
           echo "<td rowspan='1'>" . $vehiculos->MODELO . "</td>";
           echo "<td rowspan='1'>" . $vehiculos->POTENCIA . "</td>";
           echo "<td rowspan='1'>" . $vehiculos->VELOCIDAD_MAX . "</td>";
           echo "<td rowspan='1'>" . $vehiculos->IMAGEN . "</td>";
-          echo "<td><a href=\"alquilarVehiculo/$vehiculos->MATRICULA\">Alquilar</a></td>";
+          $info = $matricula.','.$datos['fechaInicial'].','.$datos['finalAlquiler'];
+          echo "<td><a href=\"alquilarVehiculo/$info\">Alquilar</a></td>";
           echo "</tr>";
         }
       ?>

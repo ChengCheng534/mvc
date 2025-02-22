@@ -70,19 +70,33 @@ class Alquileres extends Controlador{
         $this->vista('paginas/home', $datos);
     }
 
-    public function alquilarVehiculo($matricula) {
+    public function alquilarVehiculo($info) {
+        $arrayInfo = explode(",", $info);
+        
         $datos = [
             'login' => '',
             'password' => '',
             'errorLogin' => '',
             'errorPassword' => '',
             'errorCliente' => '',
-            'matricula' => $matricula,
+            'matricula' => $arrayInfo[0] ?? '',
+            'fecha_inicial' => $arrayInfo[1] ?? '',
+            'fecha_final' => $arrayInfo[2] ?? '',
         ];
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $datos['matricula'] = trim($_POST['matricula'] ?? '');
+            $datos['fecha_inicial'] = trim($_POST['fecha_inicial'] ?? '');
+            $datos['fecha_final'] = trim($_POST['fecha_final'] ?? '');
+
             $matricula = $datos['matricula'];
+
+            $fecha_inicial = new DateTime($datos['fecha_inicial']);
+            $fecha_final = new DateTime($datos['fecha_final']);
+
+            $diferencia = $fecha_inicial->diff($fecha_final);
+            $datos['dias'] = $diferencia->days;
+
 
             if (empty($_POST["login"])) {
                 $datos['errorLogin'] = "El login es obrigatorio";
@@ -117,7 +131,8 @@ class Alquileres extends Controlador{
                     $hash = $cliente->password;
 
                     if (password_verify($datos['password'], $hash)) {
-                        
+                        //$datos['precioTotal'] =;
+                       
                         $this->vista('alquilar/factura', $datos);
                         return;
                     }else{
@@ -135,4 +150,7 @@ class Alquileres extends Controlador{
         $this->vista('alquilar/iniciarSesion', $datos);
     }
 
+    public function calcularPrecio(){
+
+    }
 }
