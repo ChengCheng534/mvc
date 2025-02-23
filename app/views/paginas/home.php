@@ -30,42 +30,48 @@
   </div>
 
   <div class="container mt-3">
-  <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th>Matrícula</th>
-        <th>Marca</th>
-        <th>Modelo</th>
-        <th>Potencia</th>
-        <th>Velocidad Máxima</th>
-        <th>Imagen</th>
-        <th>Operación</th>
-      </tr>
-    </thead>
-    <tbody>
-      <?php
-      //$fechas = $datos['fechaInicial'].','.$datos['finalAlquiler'];
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Matrícula</th>
+          <th>Marca</th>
+          <th>Modelo</th>
+          <th>Potencia</th>
+          <th>Velocidad Máxima</th>
+          <th>Imagen</th>
+          <th>Operación</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php
+        //$fechas = $datos['fechaInicial'].','.$datos['finalAlquiler'];
 
-        // Recorrer el array $datos y crear las filas de la tabla
-        foreach ($datos['Vehiculos'] as $vehiculos) {
-          echo "<tr>";
-          echo "<td rowspan='1'>" . $vehiculos->MATRICULA . "</td>";
-          $matricula = $vehiculos->MATRICULA;
-          echo "<td rowspan='1'>" . $vehiculos->MARCA . "</td>";
-          echo "<td rowspan='1'>" . $vehiculos->MODELO . "</td>";
-          echo "<td rowspan='1'>" . $vehiculos->POTENCIA . "</td>";
-          echo "<td rowspan='1'>" . $vehiculos->VELOCIDAD_MAX . "</td>";
-          //echo "<td rowspan='1'>" . $vehiculos->IMAGEN . "</td>";
-          $imagenPath = RUTA_URL . '/public/img/' . $vehiculos->IMAGEN;
-          echo "<td><img src='" . $imagenPath . "' alt='Imagen del vehículo' style='width: 100px; height: auto;'></td>";
-          $info = $matricula.','.$datos['fechaInicial'].','.$datos['finalAlquiler'];
-          echo "<td><a href=\"alquilarVehiculo/$info\">Alquilar</a></td>";
-          echo "</tr>";
-        }
-      ?>
-    </tbody>
-  </table>
-</div>
+          // Recorrer el array $datos y crear las filas de la tabla
+          foreach ($datos['Vehiculos'] as $vehiculos) {
+            echo "<tr>";
+            echo "<td rowspan='1'>" . $vehiculos->MATRICULA . "</td>";
+            $matricula = $vehiculos->MATRICULA;
+            echo "<td rowspan='1'>" . $vehiculos->MARCA . "</td>";
+            echo "<td rowspan='1'>" . $vehiculos->MODELO . "</td>";
+            echo "<td rowspan='1'>" . $vehiculos->POTENCIA . "</td>";
+            echo "<td rowspan='1'>" . $vehiculos->VELOCIDAD_MAX . "</td>";
+            //echo "<td rowspan='1'>" . $vehiculos->IMAGEN . "</td>";
+            $imagenPath = RUTA_URL . '/public/img/' . $vehiculos->IMAGEN;
+            echo "<td><img src='" . $imagenPath . "' alt='Imagen del vehículo' style='width: 100px; height: auto;'></td>";
+            $info = $matricula.','.$datos['fechaInicial'].','.$datos['finalAlquiler'];
+            echo "<td><a href=\"alquilarVehiculo/$info\">Alquilar</a></td>";
+            echo "</tr>";
+          }
+        ?>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="container mt-5">
+    <div class='row col-6 offset-3'>
+      <span class="error p-5 text-center"><h1><?php //echo $datos['mensajeAlquilado']; ?></h1></span>
+    </div>
+  </div>
 <?php
   // Cargamos el footer al final de la pagina
   require RUTA_APP . '/views/inc/footer.php';

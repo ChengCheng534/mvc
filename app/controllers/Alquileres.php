@@ -22,6 +22,7 @@ class Alquileres extends Controlador{
             'finalAlquiler' => '',
             'errorFechaInicial' => '',
             'errorFechaArquiler' => '',
+            'mensajeAlquilado' => '',
         ];
 
         $this->vista('paginas/home', $datos);
@@ -200,6 +201,7 @@ class Alquileres extends Controlador{
             
             if ($this->alquilerModelo->agragarAlquiler($datos)) {
                 if ($this->enviarCorreoConfirmacion($datos)) {
+                    $datos['mensajeAlquilado'] = 'Vehículo alquilado correctamente';
                     redireccionar('/paginas');
                 } else {
                     echo "Error al enviar el correo.";

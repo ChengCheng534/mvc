@@ -21,7 +21,7 @@
               <td class="col-4 align-middle" rowSpan="8">
                 <?php
                   $fotoPath = RUTA_URL . '/public/img/' . $datos['cliente']->fotografia;
-                  echo "<img src='$fotoPath' alt='Foto del cliente' style='width: 220px; height: auto;'>";
+                  echo "<img src='$fotoPath' alt='Foto del cliente' style='width: 100%; height: auto;'>";
                 ?>
               </td>
             </tr>
@@ -73,7 +73,7 @@
                 <td class="col-3 align-middle" rowSpan="5">
                   <?php
                     $fotoPath = RUTA_URL . '/public/img/' . $datos['vehiculo']->IMAGEN;
-                    echo "<img src='$fotoPath' alt='Foto del cliente' style='width: 150px; height: auto;'>";
+                    echo "<img src='$fotoPath' alt='Foto del cliente' style='width: 100%; height: auto;'>";
                   ?>
                 </td>
               </tr>
@@ -159,7 +159,7 @@
             </tr>
           </table>
           <div class="row mb-5 col-6 offset-3 p-2">
-            <label for="lugar_recogidad" class="text-center">Lugar de recogida:</label>
+            <label for="lugar_recogidad" class="text-center">Lugar de recogida (*Opcional):</label>
             <input type="text" name="lugar_recogida" placeholder="Introduce un dirección para el recogida de vehículo" value="<?php echo $datos['lugar'];?>">
           </div>
         </div>
