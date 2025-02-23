@@ -53,5 +53,28 @@
             $resultados = $this->db->registro();
             return $resultados;
         }
+
+        public function agragarAlquiler($datos){
+            $this->db->query("INSERT INTO alquiler (cliente_id, matricula, lugar_recogida, fecha_recogida, fecha_devolucion, precio) VALUES (:cliente_id, :matricula, :lugar_recogida, :fecha_recogida, :fecha_devolucion, :precio)");
+    
+            $precioLimpio = str_replace('€', '', $datos["precio"]); // Elimina el símbolo €
+            $precioLimpio = floatval($precioLimpio); // Convierte a número decimal
+
+            // Vinculamos los valores
+            $this->db->bind(":cliente_id", $datos["cliente_id"]);
+            $this->db->bind(":matricula", $datos["matricula"]);
+            $this->db->bind(":lugar_recogida", $datos["lugar"]);
+            $this->db->bind(":fecha_recogida", $datos["fechaInicial"]);
+            $this->db->bind(":fecha_devolucion", $datos["fechaFinal"]);
+            $this->db->bind(":precio", $precioLimpio);
+    
+            // Ejecutar la consulta
+            if ($this->db->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
     }
 ?>

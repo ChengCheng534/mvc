@@ -55,7 +55,9 @@
           echo "<td rowspan='1'>" . $vehiculos->MODELO . "</td>";
           echo "<td rowspan='1'>" . $vehiculos->POTENCIA . "</td>";
           echo "<td rowspan='1'>" . $vehiculos->VELOCIDAD_MAX . "</td>";
-          echo "<td rowspan='1'>" . $vehiculos->IMAGEN . "</td>";
+          //echo "<td rowspan='1'>" . $vehiculos->IMAGEN . "</td>";
+          $imagenPath = RUTA_URL . '/public/img/' . $vehiculos->IMAGEN;
+          echo "<td><img src='" . $imagenPath . "' alt='Imagen del vehículo' style='width: 100px; height: auto;'></td>";
           $info = $matricula.','.$datos['fechaInicial'].','.$datos['finalAlquiler'];
           echo "<td><a href=\"alquilarVehiculo/$info\">Alquilar</a></td>";
           echo "</tr>";

@@ -28,6 +28,7 @@
             <span class="error text-danger">*<?php echo $datos['errorCliente'];?></span>
         </form>
         
+        
         <button type="submit" class="mt-3 col-6 col-md-4 col-lg-4">
             <a href="<?php echo RUTA_URL; ?>/clientes/agregar">Registrar</a>    
         </button>

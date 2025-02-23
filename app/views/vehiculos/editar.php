@@ -36,7 +36,7 @@
         <span class="error">* <?php echo $datos['errorImagen']; ?></span>
     </div>
 
-    <input type="submit" value="Actualizar cliente">
+    <input type="submit" value="Actualizar vehiculo">
 </form>
  <?php
   // Cargamos el footer al final de la pagina

@@ -1,6 +1,7 @@
 <?php 
   // Cargamos el header previamente
   require RUTA_APP . '/views/inc/header.php';
+  //print_r($datos);
 ?>
 <a href="<?php echo RUTA_URL; ?>/clientes">Volver</a>
 <h2>Agregar Cliente</h2>
