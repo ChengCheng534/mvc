@@ -25,17 +25,17 @@ DROP TABLE IF EXISTS `alquiler`;
 CREATE TABLE `alquiler` (
   `ALQUILER_ID` int NOT NULL AUTO_INCREMENT,
   `CLIENTE_ID` int NOT NULL,
-  `MATRICULA` char(7) COLLATE utf8mb4_general_ci NOT NULL,
-  `LUGAR_RECOGIDA` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `FECHA_RECOGIDA` varchar(10) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `FECHA_DEVOLUCION` varchar(10) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `MATRICULA` char(7) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `LUGAR_RECOGIDA` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `FECHA_RECOGIDA` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `FECHA_DEVOLUCION` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `PRECIO` decimal(10,2) DEFAULT NULL,
   PRIMARY KEY (`ALQUILER_ID`),
   KEY `CLIENTE_ID` (`CLIENTE_ID`),
   KEY `MATRICULA` (`MATRICULA`),
   CONSTRAINT `alquiler_ibfk_1` FOREIGN KEY (`CLIENTE_ID`) REFERENCES `cliente` (`cliente_id`),
   CONSTRAINT `alquiler_ibfk_2` FOREIGN KEY (`MATRICULA`) REFERENCES `vehiculo` (`MATRICULA`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -44,7 +44,7 @@ CREATE TABLE `alquiler` (
 
 LOCK TABLES `alquiler` WRITE;
 /*!40000 ALTER TABLE `alquiler` DISABLE KEYS */;
-INSERT INTO `alquiler` VALUES (1,2,'1234ASA','Aeropuerto','2025-02-20','2025-02-25',150.00);
+INSERT INTO `alquiler` VALUES (1,2,'1234ASA','Aeropuerto','2025-02-20','2025-02-25',150.00),(2,13,'1234ASX','','2025-02-23','2025-02-24',150.45),(3,13,'7777ASA','','2025-03-09','2025-03-23',1957.50),(6,13,'1234LHH','','2025-03-19','2025-03-22',516.00),(7,13,'4390JKL','Gran Via','2025-02-28','2025-03-01',169.00),(8,13,'7777ASA','','2025-03-29','2025-03-30',261.00),(9,13,'1255ASD','','2025-03-02','2025-03-09',1128.00),(10,13,'4390JKL','','2025-03-09','2025-03-13',422.50),(11,13,'4390JKL','','2025-03-09','2025-03-13',422.50),(12,13,'1234ASX','','2025-03-08','2025-03-12',630.00);
 /*!40000 ALTER TABLE `alquiler` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -57,16 +57,16 @@ DROP TABLE IF EXISTS `cliente`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cliente` (
   `cliente_id` int NOT NULL AUTO_INCREMENT,
-  `documento_identidad` char(9) COLLATE utf8mb4_general_ci NOT NULL,
-  `nombre` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `apellidos` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `email` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `documento_identidad` char(9) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `nombre` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `apellidos` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `telefono` int DEFAULT NULL,
-  `direccion` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `fecha_nacimiento` varchar(15) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `fotografia` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `login` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `password` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `direccion` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `fecha_nacimiento` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `fotografia` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `login` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `password` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`cliente_id`),
   UNIQUE KEY `documento_identidad` (`documento_identidad`)
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -78,7 +78,7 @@ CREATE TABLE `cliente` (
 
 LOCK TABLES `cliente` WRITE;
 /*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
-INSERT INTO `cliente` VALUES (2,'I2141346B','Juan','Perez Galde','luislopez@gmail.com',213123,'calle benito','2025-01-03','imagen.jpg','',''),(7,'X7834782N','hola','Lopez Martin','carmenpez@gmail.com',333999999,'calle hola','2025-01-03','mclaren.png','',''),(11,'I2134612B','Angela','celalla','yushen740@gmail.com',999999999,'calle hola','2025-02-14','','',''),(12,'X8355111X','asoidn','asfdsa','luislopez@gmail.com',234324232,'calle benito','2025-02-01','galaxia.jpg','',''),(13,'A1234567B','ChengCheng','Yu','chengyu@gmail.com',123456789,'Calle Falsa 123','2000-02-21',NULL,'chengyu','$2y$12$DFJP.7cSJPDWGh1EcFBAJucaPIdALYIdNwKLRHGNApxjZLbPBAdBe');
+INSERT INTO `cliente` VALUES (2,'I2141346B','Juan','Perez Galde','luislopez@gmail.com',213123,'calle benito','2025-01-03','imagen.jpg','',''),(7,'X7834782N','hola','Lopez Martin','carmenpez@gmail.com',333999999,'calle hola','2025-01-03','mclaren.png','',''),(11,'I2134612B','Angela','celalla','yushen740@gmail.com',999999999,'calle hola','2025-02-14','','',''),(12,'X8355111X','asoidn','asfdsa','luislopez@gmail.com',234324232,'calle benito','2025-02-01','galaxia.jpg','',''),(13,'A1234567B','ChengCheng','Yu','ccyu945@gmail.com',123456789,'Calle Falsa 123','2000-02-21','foto.jpg','chengyu','$2y$12$DFJP.7cSJPDWGh1EcFBAJucaPIdALYIdNwKLRHGNApxjZLbPBAdBe');
 /*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -90,10 +90,10 @@ DROP TABLE IF EXISTS `idiomas`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `idiomas` (
-  `ESPAÑOL` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `INGLES` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `CATALAN` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `EUSKERA` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL
+  `ESPAÑOL` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `INGLES` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `CATALAN` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `EUSKERA` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -116,12 +116,12 @@ DROP TABLE IF EXISTS `usuario`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `usuario` (
   `ID` int NOT NULL AUTO_INCREMENT,
-  `NOMBRE` varchar(10) COLLATE utf8mb4_general_ci NOT NULL,
-  `APELLIDOS` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `FECHA_DE_NACIMIENTO` varchar(10) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `LOGIN` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `PASSWORD` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `GRUPO` varchar(10) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `NOMBRE` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `APELLIDOS` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `FECHA_DE_NACIMIENTO` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `LOGIN` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `PASSWORD` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `GRUPO` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `LOGIN` (`LOGIN`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -145,12 +145,12 @@ DROP TABLE IF EXISTS `vehiculo`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `vehiculo` (
-  `MATRICULA` char(7) COLLATE utf8mb4_general_ci NOT NULL,
-  `MARCA` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
-  `MODELO` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
+  `MATRICULA` char(7) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `MARCA` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `MODELO` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `POTENCIA` int DEFAULT NULL,
   `VELOCIDAD_MAX` int DEFAULT NULL,
-  `IMAGEN` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `IMAGEN` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`MATRICULA`),
   UNIQUE KEY `MATRICULA` (`MATRICULA`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -162,7 +162,7 @@ CREATE TABLE `vehiculo` (
 
 LOCK TABLES `vehiculo` WRITE;
 /*!40000 ALTER TABLE `vehiculo` DISABLE KEYS */;
-INSERT INTO `vehiculo` VALUES ('1234ASA','BMW','wqe',123,123,'caja.png'),('1234ASX','BMW','',1,1,'estrella.png'),('1234LHH','BMW','M4',200,320,'titulo.png'),('1255ASD','BMW','M4',0,0,'titulo.png'),('7777ASA','BMW','M1',210,320,'Porsche.jpg');
+INSERT INTO `vehiculo` VALUES ('1234ASA','RENAULT','MEGANE',110,190,'Renault.jpg'),('1234ASX','TESLA','MODEL 3',210,260,'Tesla.png'),('1234LHH','MERCEDE','CLA220',200,240,'Mercedes-Benz.jpg'),('1255ASD','AUDI','X6',290,300,'Audi.png'),('4390JKL','JEEP','WRANGLER',220,250,'jeep.png'),('7777ASA','BMW','M1',210,320,'Porsche.jpg');
 /*!40000 ALTER TABLE `vehiculo` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -175,4 +175,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-02-21 21:44:55
+-- Dump completed on 2025-02-24 14:36:28
