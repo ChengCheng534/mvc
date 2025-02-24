@@ -10,7 +10,7 @@
 
 <div class="container mt-5">
     <div class='row col-6 offset-3'>
-      <span class="error p-5 text-center"><h1>Alquiler de vehículo correctamente</h1></span>
+      <span class="error p-5 text-center"><h1>Alquilado el vehículo correctamente</h1></span>
     </div>
   </div>
 
