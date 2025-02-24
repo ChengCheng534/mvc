@@ -18,6 +18,14 @@
 --
 -- Table structure for table `alquiler`
 --
+-- Eliminar la base de datos si existe
+DROP DATABASE IF EXISTS concesionario;
+
+-- Crear la base de datos nuevamente
+CREATE DATABASE concesionario;
+
+-- Usar la base de datos recién creada
+USE concesionario;
 
 DROP TABLE IF EXISTS `alquiler`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
