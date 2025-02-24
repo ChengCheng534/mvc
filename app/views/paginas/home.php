@@ -66,12 +66,6 @@
       </tbody>
     </table>
   </div>
-
-  <div class="container mt-5">
-    <div class='row col-6 offset-3'>
-      <span class="error p-5 text-center"><h1><?php //echo $datos['mensajeAlquilado']; ?></h1></span>
-    </div>
-  </div>
 <?php
   // Cargamos el footer al final de la pagina
   require RUTA_APP . '/views/inc/footer.php';
