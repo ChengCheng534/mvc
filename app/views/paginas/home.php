@@ -4,11 +4,22 @@
   //print_r($datos);
 ?>
   <div class="container mt-3">
-    <div class="col-12 list-group">
-      <a href="<?php echo RUTA_URL; ?>/Alquileres/privada" class="list-group-item list-group-item-action">Privada</a>    
+    <div class='row'>
+      <div class="col-9 col-md-10 col-lg-10 list-group">
+        <a href="<?php echo RUTA_URL; ?>/Alquileres/privada" class="list-group-item list-group-item-action">Privada</a>    
+      </div>
+      <div class="col-3 col-md-2 col-lg-2 list-group p-2">
+        <form action="<?php echo RUTA_URL; ?>/idiomas/cambiarIdioma" method="POST">
+          <select name="select">
+            <option value="español" name='español' selected>Español</option>
+            <option value="ingles" name='ingles'>English</option>
+            <option value="catalan" name='catalan'>Catalán</option>
+            <option value="euskera" name='euskera'>Euskera</option>
+          </select>
+        </form>
+      </div>
     </div>
   </div>
-
   <div class="container mt-3">
     <h2>Buscar el coche diponible:</h2>
   </div>
