@@ -25,6 +25,13 @@
             $resultados = $this->db->registros();
             return $resultados;
         }
+        
+        public function obtenerTraducciones($idioma){
+            $this->db->query("SELECT $idioma FROM idiomas");
+    
+            $resultados = $this->db->registros();
+            return $resultados;
+        }
 
         public function vehiculosDisponibles($datos) {
             $this->db->query("SELECT * FROM vehiculo WHERE matricula NOT IN (SELECT matricula FROM alquiler WHERE fecha_devolucion >= :fecha_inicial)");

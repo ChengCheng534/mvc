@@ -19,11 +19,12 @@
             }
         }
 
-        public function obtenerIdioma($idioma){
+        public function obtenerTraducciones($idioma){
             $this->db->query("SELECT $idioma FROM idiomas");
     
             $resultados = $this->db->registros();
             return $resultados;
         }
+
     }
 ?>

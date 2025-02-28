@@ -1,41 +1,54 @@
 <?php 
   // Cargamos el header previamente
   require RUTA_APP . '/views/inc/header.php';
+
   //print_r($datos);
+  $idioma = isset($_COOKIE['idioma']) ? $_COOKIE['idioma'] : 'es';
+
+  //print_r($datos['traducciones']);
+  if (isset($datos['idioma']) && $datos['idioma']) {
+    $idiomaSeleccionado = $datos['idioma'];
+  } else {
+      $idiomaSeleccionado = '';
+  }
+
 ?>
   <div class="container mt-3">
     <div class='row'>
       <div class="col-9 col-md-10 col-lg-10 list-group">
-        <a href="<?php echo RUTA_URL; ?>/Alquileres/privada" class="list-group-item list-group-item-action">Privada</a>    
+        <a href="<?php echo RUTA_URL; ?>/Alquileres/privada" class="list-group-item list-group-item-action">
+          <?php echo $datos['traducciones'][8]->$idiomaSeleccionado ? :''; ?>
+        </a>    
       </div>
       <div class="col-3 col-md-2 col-lg-2 list-group p-2">
-        <form action="<?php echo RUTA_URL; ?>/idiomas/cambiarIdioma" method="POST">
-          <select name="select">
-            <option value="español" name='español' selected>Español</option>
-            <option value="ingles" name='ingles'>English</option>
-            <option value="catalan" name='catalan'>Catalán</option>
-            <option value="euskera" name='euskera'>Euskera</option>
-          </select>
-        </form>
-      </div>
+    <form action="<?php echo RUTA_URL; ?>/Idiomas/cambiarIdioma" method="POST">
+        <select name="idioma" onchange="this.form.submit();">
+            <option value="es" <?php echo ($idioma == 'es') ? 'selected' : ''; ?>>Español</option>
+            <option value="en" <?php echo ($idioma == 'en') ? 'selected' : ''; ?>>English</option>
+            <option value="ca" <?php echo ($idioma == 'ca') ? 'selected' : ''; ?>>Catalán</option>
+            <option value="eu" <?php echo ($idioma == 'eu') ? 'selected' : ''; ?>>Euskera</option>
+        </select>
+    </form>
+</div>
+
     </div>
   </div>
   <div class="container mt-3">
-    <h2>Buscar el coche diponible:</h2>
+    <h2><?php echo $datos['traducciones'][9]->$idiomaSeleccionado ? :''; ?></h2>
   </div>
 
-  <div class="container mt.3">
+  <div class="container mt-3">
     <div class="row">
       <form action="<?php echo RUTA_URL; ?>/alquileres/mostrarVehiculos" method="POST">
-        <label for="fecha_Inicio"> Fecha de inicial</label>
-        <input type="date" name="fecha_inicial" value="<?php echo $datos['fechaInicial'];?>">
+        <label for="fecha_Inicio"> <?php echo $datos['traducciones'][22]->$idiomaSeleccionado ? :''; ?> </label>
+        <input type="date" name="fecha_inicial" value="<?php echo $datos['fechaInicial']; ?>">
         <span class="error">*<?php echo $datos['errorFechaInicial']; ?></span>
 
-        <label for="final_Alquiler" class="offset-md-1"> Final de alquiler</label>
-        <input type="date" name="final_alquiler" value="<?php echo $datos['finalAlquiler'];?>">
+        <label for="final_Alquiler" class="offset-md-1"><?php echo $datos['traducciones'][23]->$idiomaSeleccionado ? :''; ?></label>
+        <input type="date" name="final_alquiler" value="<?php echo $datos['finalAlquiler']; ?>">
         <span class="error">*<?php echo $datos['errorFechaArquiler']; ?></span>
           
-        <input type="submit" value="Disponibilidad">
+        <input type="submit" value="<?php echo $datos['traducciones'][11]->$idiomaSeleccionado ? :''; ?>">
       </form>
     </div>
   </div>
@@ -44,33 +57,28 @@
     <table class="table table-bordered">
       <thead>
         <tr>
-          <th>Matrícula</th>
-          <th>Marca</th>
-          <th>Modelo</th>
-          <th>Potencia</th>
-          <th>Velocidad Máxima</th>
-          <th>Imagen</th>
-          <th>Operación</th>
+          <th><?php echo $datos['traducciones'][12]->$idiomaSeleccionado; ?></th>
+          <th><?php echo $datos['traducciones'][13]->$idiomaSeleccionado; ?></th>
+          <th><?php echo $datos['traducciones'][14]->$idiomaSeleccionado; ?></th>
+          <th><?php echo $datos['traducciones'][15]->$idiomaSeleccionado; ?></th>
+          <th><?php echo $datos['traducciones'][16]->$idiomaSeleccionado; ?></th>
+          <th><?php echo $datos['traducciones'][17]->$idiomaSeleccionado; ?></th>
+          <th><?php echo $datos['traducciones'][18]->$idiomaSeleccionado; ?></th>
         </tr>
       </thead>
       <tbody>
         <?php
-        //$fechas = $datos['fechaInicial'].','.$datos['finalAlquiler'];
-
-          // Recorrer el array $datos y crear las filas de la tabla
           foreach ($datos['Vehiculos'] as $vehiculos) {
             echo "<tr>";
-            echo "<td rowspan='1'>" . $vehiculos->MATRICULA . "</td>";
-            $matricula = $vehiculos->MATRICULA;
-            echo "<td rowspan='1'>" . $vehiculos->MARCA . "</td>";
-            echo "<td rowspan='1'>" . $vehiculos->MODELO . "</td>";
-            echo "<td rowspan='1'>" . $vehiculos->POTENCIA . "</td>";
-            echo "<td rowspan='1'>" . $vehiculos->VELOCIDAD_MAX . "</td>";
-            //echo "<td rowspan='1'>" . $vehiculos->IMAGEN . "</td>";
+            echo "<td>" . $vehiculos->MATRICULA . "</td>";
+            echo "<td>" . $vehiculos->MARCA . "</td>";
+            echo "<td>" . $vehiculos->MODELO . "</td>";
+            echo "<td>" . $vehiculos->POTENCIA . "</td>";
+            echo "<td>" . $vehiculos->VELOCIDAD_MAX . "</td>";
             $imagenPath = RUTA_URL . '/public/img/' . $vehiculos->IMAGEN;
             echo "<td><img src='" . $imagenPath . "' alt='Imagen del vehículo' style='width: 100px; height: auto;'></td>";
-            $info = $matricula.','.$datos['fechaInicial'].','.$datos['finalAlquiler'];
-            echo "<td><a href=\"alquilarVehiculo/$info\">Alquilar</a></td>";
+            $info = $vehiculos->MATRICULA . ',' . $datos['fechaInicial'] . ',' . $datos['finalAlquiler'];
+            echo "<td><a href='alquilarVehiculo/$info'>" . $datos['traducciones'][28]->$idiomaSeleccionado . "</a></td>";
             echo "</tr>";
           }
         ?>
@@ -78,6 +86,5 @@
     </table>
   </div>
 <?php
-  // Cargamos el footer al final de la pagina
   require RUTA_APP . '/views/inc/footer.php';
 ?>

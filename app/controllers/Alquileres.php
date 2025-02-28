@@ -16,14 +16,39 @@ class Alquileres extends Controlador{
     }
 
     public function index() {
+        $idioma = isset($_COOKIE['idioma']) ? $_COOKIE['idioma'] : 'es';
+        if ($idioma=='es') {
+            $idioma = 'español';
+        }elseif ($idioma=='en') {
+            $idioma = 'Ingles';
+        }elseif ($idioma=='ca') {
+            $idioma = 'Catalan';
+        }elseif ($idioma=='eu') {
+            $idioma = 'Euskera';
+        }
+
         $datos =[
             'Vehiculos' => new Alquiler(),
             'fechaInicial' => '',
             'finalAlquiler' => '',
             'errorFechaInicial' => '',
             'errorFechaArquiler' => '',
-            'mensajeAlquilado' => '',
+            'idioma'=>$idioma,
+            'traducciones'=> '',
         ];
+
+        if ($idioma=='es') {
+            $idioma = 'español';
+        }elseif ($idioma=='en') {
+            $idioma = 'Ingles';
+        }elseif ($idioma=='ca') {
+            $idioma = 'Catalan';
+        }elseif ($idioma=='eu') {
+            $idioma = 'Euskera';
+        }
+
+        $traducciones = $this->alquilerModelo->obtenerTraducciones($idioma);
+        $datos['traducciones']= $traducciones;
 
         $this->vista('paginas/home', $datos);
     }
@@ -35,38 +60,81 @@ class Alquileres extends Controlador{
             'errorLogin' => '',
             'errorPassword' => '',
         ];
+
+        if (isset($_COOKIE["idioma"])) {
+            $idioma = $_COOKIE["idioma"];
+
+            if ($idioma=='es') {
+                $idioma = 'ESPAÑOL';
+            }elseif ($idioma=='en') {
+                $idioma = 'Ingles';
+            }elseif ($idioma=='ca') {
+                $idioma = 'Catalan';
+            }elseif ($idioma=='eu') {
+                $idioma = 'Euskera';
+            }
+            
+            $datos['idioma'] = $idioma;
+            $traducciones = $this->alquilerModelo->obtenerTraducciones($idioma);
+
+            $datos['traducciones']= $traducciones;
+            $this->vista('paginas/sesion', $datos);
+        }
+
         $this->vista('paginas/sesion', $datos);
     }
 
     public function mostrarVehiculos() {
-        $datos = [
+
+        $datos =[
             'Vehiculos' => new Alquiler(),
             'fechaInicial' => '',
             'finalAlquiler' => '',
             'errorFechaInicial' => '',
             'errorFechaArquiler' => '',
+            'idioma'=>'',
+            'traducciones'=> '',
         ];
     
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+            if (isset($_COOKIE["idioma"])) {
+                $idioma = $_COOKIE["idioma"];
+    
+                if ($idioma=='es') {
+                    $idioma = 'ESPAÑOL';
+                }elseif ($idioma=='en') {
+                    $idioma = 'Ingles';
+                }elseif ($idioma=='ca') {
+                    $idioma = 'Catalan';
+                }elseif ($idioma=='eu') {
+                    $idioma = 'Euskera';
+                }
+                
+                $datos['idioma'] = $idioma;
+                $traducciones = $this->alquilerModelo->obtenerTraducciones($idioma);
+    
+                $datos['traducciones']= $traducciones;
+            }
+            
             // Recoger datos del formulario
             $datos['fechaInicial'] = trim($_POST['fecha_inicial'] ?? '');
             $datos['finalAlquiler'] = trim($_POST['final_alquiler'] ?? '');
     
             // Validación de fechas
             if (empty($datos['fechaInicial'])) {
-
-                $datos['errorFechaInicial'] = "Introduce la fecha inicial";
+                $datos['errorFechaInicial'] = $datos['traducciones'][24]->$idioma;
 
             }elseif (strtotime($datos['fechaInicial']) < strtotime('today')) {
                 // Compara la fecha inicial con la fecha actual
-                $datos['errorFechaInicial'] = "La fecha inicial no puede ser menor que la fecha de hoy";
+                $datos['errorFechaInicial'] = $datos['traducciones'][25]->$idioma;
             }
     
             if (empty($datos['finalAlquiler'])) {
-                $datos['errorFechaArquiler'] = "Introduce la fecha de alquiler";
+                $datos['errorFechaArquiler'] = $datos['traducciones'][26]->$idioma;
 
             } elseif (!empty($datos['fechaInicial']) && $datos['finalAlquiler'] <= $datos['fechaInicial']) {
-                $datos['errorFechaArquiler'] = "La fecha de alquiler debe ser mayor que la fecha inicial";
+                $datos['errorFechaArquiler'] = $datos['traducciones'][27]->$idioma;
             }
     
             // Si no hay errores, buscar vehículos disponibles
@@ -97,9 +165,31 @@ class Alquileres extends Controlador{
             'matricula' => $arrayInfo[0] ?? '',
             'fecha_inicial' => $arrayInfo[1] ?? '',
             'fecha_final' => $arrayInfo[2] ?? '',
+            'idioma'=>'',
+            'traducciones'=> '',
         ];
 
+        if (isset($_COOKIE["idioma"])) {
+            $idioma = $_COOKIE["idioma"];
+
+            if ($idioma=='es') {
+                $idioma = 'ESPAÑOL';
+            }elseif ($idioma=='en') {
+                $idioma = 'Ingles';
+            }elseif ($idioma=='ca') {
+                $idioma = 'Catalan';
+            }elseif ($idioma=='eu') {
+                $idioma = 'Euskera';
+            }
+            
+            $datos['idioma'] = $idioma;
+            $traducciones = $this->alquilerModelo->obtenerTraducciones($idioma);
+
+            $datos['traducciones']= $traducciones;
+        }
+
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
             $datos['matricula'] = trim($_POST['matricula'] ?? '');
             $datos['fecha_inicial'] = trim($_POST['fecha_inicial'] ?? '');
             $datos['fecha_final'] = trim($_POST['fecha_final'] ?? '');
@@ -114,22 +204,22 @@ class Alquileres extends Controlador{
 
 
             if (empty($_POST["login"])) {
-                $datos['errorLogin'] = "El login es obrigatorio";
+                $datos['errorLogin'] = $datos['traducciones'][31]->$idioma;
             } else {
                 $datos['login'] = trim($_POST['login'] ?? '');
                 
                 if (!preg_match("/^[a-zA-Z-' ]*$/", $datos['login'])) {
-                    $datos['errorLogin'] = "El formato de login es incorrecto";
+                    $datos['errorLogin'] = $datos['traducciones'][32]->$idioma;
                 }
             }
 
             if (empty($_POST['password'])) {
-                $datos['errorPassword'] = "El password es obrigatorio";
+                $datos['errorPassword'] = $datos['traducciones'][33]->$idioma;
             } else {
                 $datos['password'] = trim($_POST['password'] ?? '');
                 
                 if (!preg_match("/^[a-zA-Z0-9]+$/", $datos['password'])) {
-                    $datos['errorPassword'] = "El formato de password es incorrecto";
+                    $datos['errorPassword'] = $datos['traducciones'][34]->$idioma;
                 }
             }
 
@@ -162,10 +252,10 @@ class Alquileres extends Controlador{
                         $this->vista('alquilar/factura', $datos);
                         return;
                     }else{
-                        $datos['errorPassword'] = "El password es incorrecto";
+                        $datos['errorPassword'] = $datos['traducciones'][35]->$idioma;
                     }
                 }else{
-                    $datos['errorCliente'] = "No eres clientes, no está registrado";
+                    $datos['errorCliente'] = $datos['traducciones'][36]->$idioma;
                 }
             }
             //Si hay errores, vuelve a la pagina con errores
@@ -182,6 +272,8 @@ class Alquileres extends Controlador{
             'finalAlquiler' => '',
             'errorFechaInicial' => '',
             'errorFechaArquiler' => '',
+            'idioma'=>'',
+            'traducciones'=> '',
         ];
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -198,10 +290,29 @@ class Alquileres extends Controlador{
                 'fechaFinal'=>trim($_POST['fechaFinal']),
                 'precio'=>trim($_POST['precio']),
             ];
+
+            if (isset($_COOKIE["idioma"])) {
+                $idioma = $_COOKIE["idioma"];
+    
+                if ($idioma=='es') {
+                    $idioma = 'ESPAÑOL';
+                }elseif ($idioma=='en') {
+                    $idioma = 'Ingles';
+                }elseif ($idioma=='ca') {
+                    $idioma = 'Catalan';
+                }elseif ($idioma=='eu') {
+                    $idioma = 'Euskera';
+                }
+                
+                $datos['idioma'] = $idioma;
+                $traducciones = $this->alquilerModelo->obtenerTraducciones($idioma);
+    
+                $datos['traducciones']= $traducciones;
+            }
             
             if ($this->alquilerModelo->agragarAlquiler($datos)) {
                 if ($this->enviarCorreoConfirmacion($datos)) {
-                    $this->vista('alquilar/alquilerHecho');
+                    $this->vista('alquilar/alquilerHecho', $datos);
                 } else {
                     echo "Error al enviar el correo.";
                 }
@@ -220,7 +331,7 @@ class Alquileres extends Controlador{
             $mail->Host = 'smtp.gmail.com'; // Servidor SMTP
             $mail->SMTPAuth = true;
             $mail->Username = 'yushen740@gmail.com'; 
-            $mail->Password = 'gvvz dszd ruzt xjyw'; 
+            $mail->Password = 'wacd cimn zeud uqsu'; 
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
             $mail->Port = 587; 
     

@@ -13,8 +13,14 @@ class Usuario {
         $resultados = $this->db->registros();
         return $resultados;
     }
-    
 
+    public function obtenerTraducciones($idioma){
+        $this->db->query("SELECT $idioma FROM idiomas");
+
+        $resultados = $this->db->registros();
+        return $resultados;
+    }
+    
     public function obtenerDatos($login){
         $this->db->query("SELECT PASSWORD from usuario where LOGIN=:usuario and GRUPO='admin'");
         $this->db->bind(":usuario", $login);

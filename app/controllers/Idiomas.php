@@ -4,27 +4,48 @@ class Idiomas extends Controlador{
         $this->idiomaModelo = $this->modelo('Idioma');
     }
 
-    public function cambiarIdiomas() {
-        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['select'])) {
-            $idioma = $_POST['select'];
-            setcookie("idioma", $idioma, time() + (86400 * 30), "/"); // Cookie válida por 30 días
-        }
-        header("Location: " . $_SERVER["HTTP_REFERER"]); // Recargar la página anterior
-        exit();
-    }
-
     public function cambiarIdioma() {
-        // Verifica si se ha enviado una solicitud POST con el idioma seleccionado
-        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['select'])) {
-            // Obtiene el idioma seleccionado desde el formulario
-            $idioma = $_POST['select'];
-            
-            // Establece una cookie con el idioma seleccionado. La cookie expira en 30 días.
-            setcookie("idioma", $idioma, time() + (86400 * 30), "/"); // 86400 segundos = 1 día
+        $datos = [
+            'Vehiculos' => new Idioma(),
+            'fechaInicial' => '',
+            'finalAlquiler' => '',
+            'errorFechaInicial' => '',
+            'errorFechaArquiler' => '',
+            'idioma' => '',
+            'traducciones' =>'',
+        ];
 
-            // Redirige a la página anterior (es decir, donde el usuario estaba)
-            header("Location: " . $_SERVER["HTTP_REFERER"]);
-            exit();
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['idioma'])) {
+            $idioma = $_POST['idioma'];
+            // Guardar en cookie por 30 días
+            setcookie('idioma', $idioma, time() + (86400 * 30), "/"); 
+
+            if ($idioma=='es') {
+                $idioma = 'ESPAÑOL';
+            }elseif ($idioma=='en') {
+                $idioma = 'Ingles';
+            }elseif ($idioma=='ca') {
+                $idioma = 'Catalan';
+            }elseif ($idioma=='eu') {
+                $idioma = 'Euskera';
+            }
+
+            $datos = [
+                'Vehiculos' => new Idioma(),
+                'fechaInicial' => '',
+                'finalAlquiler' => '',
+                'errorFechaInicial' => '',
+                'errorFechaArquiler' => '',
+                'idioma' => $idioma,
+                'traducciones' => '',
+            ];
+
+            $datos['traducciones'] = $this->idiomaModelo->obtenerTraducciones($idioma);
+
+            $this->vista('paginas/home', $datos);
         }
+
+        $this->vista('paginas/home', $datos);
     }
+
 }
