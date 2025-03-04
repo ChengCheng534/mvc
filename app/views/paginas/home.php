@@ -15,43 +15,70 @@
 ?>
   <div class="container mt-3">
     <div class='row'>
-      <div class="col-9 col-md-10 col-lg-10 list-group">
+      <div class="col-3 col-md-2 col-lg-1 list-group text-center">
         <a href="<?php echo RUTA_URL; ?>/Alquileres/privada" class="list-group-item list-group-item-action">
           <?php echo $datos['traducciones'][8]->$idiomaSeleccionado ? :''; ?>
         </a>    
       </div>
-      <div class="col-3 col-md-2 col-lg-2 list-group p-2">
-    <form action="<?php echo RUTA_URL; ?>/Idiomas/cambiarIdioma" method="POST">
-        <select name="idioma" onchange="this.form.submit();">
-            <option value="es" <?php echo ($idioma == 'es') ? 'selected' : ''; ?>>Español</option>
-            <option value="en" <?php echo ($idioma == 'en') ? 'selected' : ''; ?>>English</option>
-            <option value="ca" <?php echo ($idioma == 'ca') ? 'selected' : ''; ?>>Catalán</option>
-            <option value="eu" <?php echo ($idioma == 'eu') ? 'selected' : ''; ?>>Euskera</option>
-        </select>
-    </form>
-</div>
 
+      <div class="col-3 col-md-2 col-lg-1 list-group offset-6 offset-md-8 offset-lg-10">
+        <form action="<?php echo RUTA_URL; ?>/Idiomas/cambiarIdioma" method="POST" class="">
+            <select class='p-2' name="idioma" onchange="this.form.submit();">
+                <option value="es" <?php echo ($idioma == 'es') ? 'selected' : ''; ?>>Español</option>
+                <option value="en" <?php echo ($idioma == 'en') ? 'selected' : ''; ?>>English</option>
+                <option value="ca" <?php echo ($idioma == 'ca') ? 'selected' : ''; ?>>Catalán</option>
+                <option value="eu" <?php echo ($idioma == 'eu') ? 'selected' : ''; ?>>Euskera</option>
+            </select>
+        </form>
+      </div>
     </div>
-  </div>
-  <div class="container mt-3">
-    <h2><?php echo $datos['traducciones'][9]->$idiomaSeleccionado ? :''; ?></h2>
   </div>
 
   <div class="container mt-3">
-    <div class="row">
-      <form action="<?php echo RUTA_URL; ?>/alquileres/mostrarVehiculos" method="POST">
-        <label for="fecha_Inicio"> <?php echo $datos['traducciones'][22]->$idiomaSeleccionado ? :''; ?> </label>
-        <input type="date" name="fecha_inicial" value="<?php echo $datos['fechaInicial']; ?>">
-        <span class="error">*<?php echo $datos['errorFechaInicial']; ?></span>
+    <!-- Título del formulario -->
+    <div class="row mb-4">
+      <div class="col-12 text-center">
+        <h2><?php echo $datos['traducciones'][9]->$idiomaSeleccionado ? : ''; ?></h2>
+      </div>
+    </div>
 
-        <label for="final_Alquiler" class="offset-md-1"><?php echo $datos['traducciones'][23]->$idiomaSeleccionado ? :''; ?></label>
-        <input type="date" name="final_alquiler" value="<?php echo $datos['finalAlquiler']; ?>">
-        <span class="error">*<?php echo $datos['errorFechaArquiler']; ?></span>
-          
-        <input type="submit" value="<?php echo $datos['traducciones'][11]->$idiomaSeleccionado ? :''; ?>">
-      </form>
+    <!-- Formulario -->
+    <div class="row justify-content-center">
+      <div class="col-md-8 col-lg-6">
+        <form action="<?php echo RUTA_URL; ?>/alquileres/mostrarVehiculos" method="POST">
+          <!-- Fecha de inicio -->
+          <div class="form-group row">
+            <label for="fecha_Inicio" class="col-sm-4 col-form-label text-right">
+              <?php echo $datos['traducciones'][22]->$idiomaSeleccionado ? : ''; ?>
+            </label>
+            <div class="col-sm-8">
+              <input type="date" name="fecha_inicial" value="<?php echo $datos['fechaInicial']; ?>" class="form-control">
+              <small class="text-danger"><?php echo $datos['errorFechaInicial']; ?></small>
+            </div>
+          </div>
+
+          <!-- Fecha de finalización del alquiler -->
+          <div class="form-group row mt-1">
+            <label for="final_Alquiler" class="col-sm-4 col-form-label text-right">
+              <?php echo $datos['traducciones'][23]->$idiomaSeleccionado ? : ''; ?>
+            </label>
+            <div class="col-sm-8">
+              <input type="date" name="final_alquiler" value="<?php echo $datos['finalAlquiler']; ?>" class="form-control">
+              <small class="text-danger"><?php echo $datos['errorFechaArquiler']; ?></small>
+            </div>
+          </div>
+
+          <!-- Botón de enviar -->
+          <div class="form-group row mt-1">
+            <div class="col-sm-12 text-center">
+              <input type="submit" value="<?php echo $datos['traducciones'][11]->$idiomaSeleccionado ? : ''; ?>" class="btn btn-primary">
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
+
 
   <div class="container mt-3">
     <table class="table table-bordered">

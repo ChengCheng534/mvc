@@ -33,7 +33,8 @@
           echo "<td rowspan='2'>" . $vehiculos->MODELO . "</td>";
           echo "<td rowspan='2'>" . $vehiculos->POTENCIA . "</td>";
           echo "<td rowspan='2'>" . $vehiculos->VELOCIDAD_MAX . "</td>";
-          echo "<td rowspan='2'>" . $vehiculos->IMAGEN . "</td>";
+          $imagenPath = RUTA_URL . '/public/img/' . $vehiculos->IMAGEN;
+          echo "<td rowspan='2'><img src='" . $imagenPath . "' alt='Imagen del vehículo' style='width: 100px; height: auto;'></td>";
           echo "<td><a href=\"vehiculos/visualizarBorrado/$vehiculos->MATRICULA\">Borrar</a></td>";
           echo "</tr>";
           echo "<tr>";

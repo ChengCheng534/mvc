@@ -31,15 +31,17 @@
         // Recorrer el array $datos y crear las filas de la tabla
         foreach ($datos['Clientes'] as $clientes) {
           echo "<tr>";
-          echo "<td rowspan='2'>" . $clientes->cliente_id . "</td>";
-          echo "<td rowspan='2'>" . $clientes->documento_identidad . "</td>";
-          echo "<td rowspan='2'>" . $clientes->nombre . "</td>";
-          echo "<td rowspan='2'>" . $clientes->apellidos . "</td>";
-          echo "<td rowspan='2'>" . $clientes->email . "</td>";
-          echo "<td rowspan='2'>" . $clientes->telefono . "</td>";
-          echo "<td rowspan='2'>" . $clientes->direccion . "</td>";
-          echo "<td rowspan='2'>" . $clientes->fecha_nacimiento . "</td>";
-          echo "<td rowspan='2'>" . $clientes->fotografia . "</td>";
+          echo "<td rowspan='2' class='align-middle'>" . $clientes->cliente_id . "</td>";
+          echo "<td rowspan='2' class='align-middle'>" . $clientes->documento_identidad . "</td>";
+          echo "<td rowspan='2' class='align-middle'>" . $clientes->nombre . "</td>";
+          echo "<td rowspan='2' class='align-middle'>" . $clientes->apellidos . "</td>";
+          echo "<td rowspan='2' class='align-middle'>" . $clientes->email . "</td>";
+          echo "<td rowspan='2' class='align-middle'>" . $clientes->telefono . "</td>";
+          echo "<td rowspan='2' class='align-middle'>" . $clientes->direccion . "</td>";
+          echo "<td rowspan='2' class='align-middle'>" . $clientes->fecha_nacimiento . "</td>";
+          $imagenPath = RUTA_URL . '/public/img/' . $clientes->fotografia;
+          //echo "<td rowspan='2'>" . $clientes->fotografia . "</td>";
+          echo "<td rowspan='2'><img src='" . $imagenPath . "' alt='Imagen del cliente' style='width: 100px; height: auto;'></td>";
           //echo "<img src='../img/" . $clientes->fotografia . "' alt='foto'>";
           echo "<td><a href=\"Clientes/visualizarBorrado/$clientes->cliente_id\">Borrar</a></td>";
           echo "</tr>";

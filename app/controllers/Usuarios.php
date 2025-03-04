@@ -112,6 +112,7 @@ class Usuarios extends Controlador{
             redireccionar('/paginas');
         }
         $this->vista('paginas/sesion', $datos);
+
     }
     
     public function agregar() {
