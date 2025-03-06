@@ -44,7 +44,7 @@ class Clientes extends Controlador{
         ];
     
         // Cargar la vista con los datos de los clientes
-        $this->vista('clientes/inicio', $datos);
+        $this->vista('clientes/Inicio', $datos);
     }
     
     
@@ -60,6 +60,8 @@ class Clientes extends Controlador{
                 'direccion'=> trim($_POST['direccion']),
                 'fecha_nacimiento'=> trim($_POST['fecha_nacimiento']),
                 'fotografia'=> trim($_POST['fotografia']),
+                'login'=> trim($_POST['login']),
+                'password'=> trim($_POST['password']),
             ];
                 if(empty($_POST['documento_identidad'])){
                     $datos['errorIdent'] = "El campo de documento identidad es requerido";
@@ -78,8 +80,25 @@ class Clientes extends Controlador{
                 }else{
                     $datos['errorApellidos'] = '';
                 }
+
+                if(empty($_POST['login'])){
+                    $datos['errorLogin'] = "El campo de Login es requerido";
+                }else{
+                    $datos['errorLogin'] = '';
+                }
+
+                if(empty($_POST['password'])){
+                    $datos['errorPassword'] = "El campo de passsword es requerido";
+                }else{
+                    $datos['errorPassword'] = '';
+                }
+
+                if(empty($_POST['telefono'])){
+                    $datos['telefono'] = 000000000;
+                }
             
-                if ($datos['errorIdent']=='' && $datos['errorNombre']=='' && $datos['errorApellidos']=='') {
+                if ($datos['errorIdent']=='' && $datos['errorNombre']=='' && $datos['errorApellidos']=='' && $datos['errorLogin']=='' && $datos['errorPassword']=='') {
+                    $datos['password'] = password_hash($datos['password'], PASSWORD_DEFAULT);
                     if ($this->clienteModelo->agregarClientes($datos)){
                         redireccionar('/clientes');
                     } 
@@ -95,15 +114,18 @@ class Clientes extends Controlador{
                 'telefono'=> '',
                 'direccion'=> '',
                 'fecha_nacimiento'=> '',
+                'login'=> '',
+                'password'=>'',
                 'fotografia'=> '', 
                 'errorId' =>'', 
                 'errorIdent' =>'',
                 'errorNombre' =>'',
                 'errorApellidos' =>'',
+                'errorLogin'=> '',
+                'errorPassword'=> '',
             ];
             $this->vista('clientes/agregar', $datos);
         }
-        echo "hola";
     }
 
     public function visualizarBorrado($cliente_id){

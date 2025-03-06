@@ -1,12 +1,11 @@
 <?php 
   // Cargamos el header previamente
   require RUTA_APP . '/views/inc/header.php';
-
-//print_r($datos); // Esta variable viene del controlador
+  //print_r($datos); // Esta variable viene del controlador
 ?>
 <div class="container mt-5">
   <div class="list-group">
-    <a href="<?php echo RUTA_URL; ?>/paginas/menu" class="col-6 list-group-item list-group-item-action">Volver al menú</a>    
+    <a href="<?php echo RUTA_URL; ?>/paginas/menu" class="col-6 list-group-item list-group-item-action">Volver al página principal</a>    
     <a href="<?php echo RUTA_URL; ?>/clientes/agregar" class="col-6 list-group-item list-group-item-action">Dar alta a cliente</a>    
   </div>
 </div>

@@ -27,7 +27,7 @@
         }
 
         public function agregarClientes($datos){
-            $this->db->query("INSERT INTO cliente (documento_identidad, nombre, apellidos, email, telefono, direccion, fecha_nacimiento, fotografia) VALUES (:documento_identidad, :nombre, :apellidos, :email, :telefono, :direccion, :fecha_nacimiento, :fotografia)");
+            $this->db->query("INSERT INTO cliente (documento_identidad, nombre, apellidos, email, telefono, direccion, fecha_nacimiento, fotografia, login, password) VALUES (:documento_identidad, :nombre, :apellidos, :email, :telefono, :direccion, :fecha_nacimiento, :fotografia, :login, :password)");
     
             // Vinculamos los valores
             $this->db->bind(":documento_identidad", $datos["documento_identidad"]);
@@ -39,6 +39,8 @@
             $this->db->bind(":direccion", $datos["direccion"]);
             $this->db->bind(":fecha_nacimiento", $datos["fecha_nacimiento"]);
             $this->db->bind(":fotografia", $datos["fotografia"]);
+            $this->db->bind(":login", $datos["login"]);
+            $this->db->bind(":password", $datos["password"]);
     
             // Ejecutar la consulta
             if ($this->db->execute()) {

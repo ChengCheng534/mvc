@@ -4,8 +4,8 @@
 
 ?>
 <div class="container mt-5">
-  <div class="list-group col-3 col-md-2 text-center">
-    <a href="<?php echo RUTA_URL; ?>/vehiculos" class="list-group-item list-group-item-action">Volver</a>    
+  <div class="list-group">
+    <a href="<?php echo RUTA_URL; ?>/vehiculos" class="btn btn-primary mb-3">Volver</a>
   </div>
 </div>
 
@@ -45,7 +45,7 @@
     </div>
 
     <!-- Imagen -->
-    <div class="form-group">
+    <div class="form-group mt-1">
       <label for="imagen">Imagen <sup>*</sup></label>
       <input type="file" name="imagen" class="form-control-file" value="<?php echo $datos['imagen']; ?>">
       <small class="text-danger"><?php echo $datos['errorImagen']; ?></small>
